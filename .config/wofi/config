@@ -1,0 +1,10 @@
+# CONFIG OPTIONS
+allow_markup=true
+no_actions=true
+orientation=vertical
+
+# DRUN_CONFIG_OPTIONS
+drun-display_generic=true
+
+# RUN_CONFIG_OPTIONS
+run-always_parse_args=true

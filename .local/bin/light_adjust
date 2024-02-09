@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+# Smol script to fix the uneven behavior of light -U and light -A
+# $1 = 'A' or 'U' like from light
+# $2 = number to change light by (0 = undefined behavior)
+# $3 = name of interface (defaults to sysfs/backlight/auto)
+
+add=${1:-U}
+integer amt=${2:-5}
+interface=${3:-sysfs/backlight/auto}
+integer val=$(light -s $interface -G)
+
+if [[ $add == 'A' ]]; then
+    (( val = (val + (2 * amt - 1)) / amt * amt ))
+elif [[ $add == 'U' ]]; then
+    (( val = (val - (1 * amt - 1)) / amt * amt ))
+else
+    exit 1
+fi
+
+light -s $interface -S $val

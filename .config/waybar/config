@@ -1,0 +1,227 @@
+// Vim: set ft=json :
+{
+    "height": 44,
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "modules-left": [
+        "tray",
+        "sway/workspaces",
+        "sway/scratchpad",
+        "sway/mode",
+        "sway/language",
+        "idle_inhibitor",
+        "custom/timers",
+    ],
+    "modules-center": [
+        "sway/window",
+    ],
+    "modules-right": [
+        "pulseaudio",
+        // "wireplumber",
+        "backlight",
+        "network",
+        "disk",
+        "memory",
+        "cpu#usage",
+        // "cpu#frequency",
+        "temperature#CPU",
+        // "custom/gpu",
+        // "temperature#GPU",
+        // "custom/fan",
+        "battery",
+        "clock",
+    ],
+
+    // ## modules-left
+    "tray": {
+        "icon-size": 32,
+        "spacing": 10,
+    },
+    "sway/workspaces": {
+        "all-outputs": true,
+        "disable-scroll": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "󰣇",
+            "4": "󱂬",
+            "default": "",
+            "urgent": "",
+        },
+        "warp-on-scroll": false,
+    },
+    "sway/scratchpad": {
+        "format": "{icon}:{count}",
+        "format-icons": ["", ""],
+        "show-empty": false,
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}",
+    },
+    "sway/mode": {
+        "format": "{}",
+    },
+    "sway/language": {
+        "format": "{flag}",
+        "tooltip-format": "{long}",
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "",
+        },
+        "tooltip-format-activated": "presentation mode on",
+        "tooltip-format-deactivated": "presentation mode off",
+    },
+    "custom/timers": {
+        "exec": "timers_widget",
+        "interval": 300,
+        "return-type": "json",
+    },
+
+    // ## modules-center
+    "sway/window": {
+        "format": "{}",
+        "max-length": 60,
+        "min-length": 60,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": " $1",
+            "(.*) — Mozilla Firefox Private Browsing": "󱀣 $1",
+            "(.*) — NVIM": " $1",
+        },
+    },
+
+    // ## modules-right
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-icons": {
+            "car": "",
+            "default": ["", "", ""],
+            "hands-free": "",
+            "headphone": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+        },
+        "format-muted": " ",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "scroll-step": 5,
+        "smooth-scrolling-threshold": 1.0,
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-down": "light_adjust U 5",
+        "on-scroll-up": "light_adjust A 5",
+        "smooth-scrolling-threshold": 1.0,
+    },
+    "network": {
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "format-disconnected": "Disconnected ⚠",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-wifi": "{signalStrength}% ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+    },
+    "disk": {
+        "format": "{percentage_free}% ",
+        "states": {
+            "critical": 95,
+            "warning": 80,
+        },
+    },
+    "memory": {
+        "format": "{}% ",
+        "states": {
+            "critical": 95,
+            "warning": 80,
+        },
+    },
+    "cpu#usage": {
+        "format": "{usage}% ",
+        "states": {
+            "critical": 95,
+            "warning": 80,
+        },
+        "tooltip": true,
+    },
+    "cpu#frequency": {
+        "format": "{avg_frequency:1.1f}GHz 󰓅",
+        "states": {
+            "critical": 95,
+            "warning": 80,
+        },
+        "tooltip": true,
+    },
+    "temperature#CPU": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C {icon}",
+        "format-critical": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""],
+        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+        "input-filename": "temp1_input",
+        "tooltip-format": "CPU: {temperatureC}°C",
+    },
+    "custom/gpu": {
+        "exec": "cat /sys/devices/pci0000:00/0000:00:08.1/0000:04:00.0/gpu_busy_percent",
+        "format": "󱤓 {}%",
+        "return-type": "",
+        "interval": 10,
+    },
+    "temperature#GPU": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C {icon}",
+        "format-critical": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""],
+        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:08.1/0000:04:00.0/hwmon",
+        "input-filename": "temp1_input",
+        "tooltip-format": "GPU: {temperatureC}°C",
+    },
+    "custom/fan": {
+        "exec": "fan_widget",
+        "interval": 30,
+        "return-type": "json",
+        "format": "{percentage}% {icon}",
+        "format-icons": [
+            "󰈐",
+        ],
+    },
+    "battery": {
+        "interval": 30,
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""],
+        "format-plugged": "{capacity}% ",
+        "states": {
+            "critical": 5,
+            "warning": 15,
+        },
+    },
+    "clock": {
+        "actions": {
+            "on-click-right": "shift_down",
+            "on-click": "shift_up",
+        },
+        "calendar": {
+            "format": {
+                "months":     "<b>{}</b>",
+                "days":       "{}",
+                "weeks":      "<span color='#99ffdd'><b>v{} </b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b>{}</b></span>",
+            },
+            "mode"          : "month",
+            "on-scroll"     : 1,
+            "weeks-pos"     : "left",
+        },
+        "format": "{:%d %b %R}",
+        "tooltip-format": "<big>{calendar}</big>",
+    },
+}

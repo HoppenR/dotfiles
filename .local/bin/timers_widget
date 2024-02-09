@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+my @tooltip_lines;
+
+#### TIMERS
+my @timer_table = qx(systemctl --quiet list-timers);
+my $first_timer;
+die "list-timers command exited with non-zero status: $?\n" if $? != 0;
+
+if (scalar @timer_table != 0) {
+    my $re_date = qr/\w{3} [\d-]{10} [\d:]{8} \w{3,4}/;
+    my $re_last = qr/-|${re_date}/;
+    my $re_unit = qr/years?|months?|weeks?|days?|h|min|s/;
+    my $re_qnty = qr/\d{1,2} ?${re_unit}/;
+    my $re_time = qr/${re_qnty} ?${re_qnty}?/;
+    my $re_pass = qr/-|${re_time} ago/;
+    my $re_main = qr/
+        ^
+        ${re_date}\s+            # NEXT
+        (?<time>${re_time})\s    # LEFT
+        ${re_last}\s+            # LAST
+        ${re_pass}\s             # PASSED
+        (?<name>\S+)\.timer\s+   # UNIT
+        \k<name>\.service        # ACTIVATES
+        $
+    /x;
+
+    push @tooltip_lines, "--- Timers ---";
+    my @timers = map { /$re_main/ ? "$+{name}: $+{time}" : () } @timer_table;
+    $first_timer = $timers[0];
+    push @tooltip_lines, @timers;
+}
+
+#### FAILED UNITS
+my @fail_table = qx(systemctl --quiet list-units --failed);
+my $first_failed;
+die "list-units command exited with non-zero status: $?\n" if $? != 0;
+
+if (scalar @fail_table != 0) {
+    my $re_failed = qr/● (?<name>\S+)\.service/;
+    push @tooltip_lines, "--- Failed units ---";
+    my @failed = map { /$re_failed/ ? "$+{name}" : () } @fail_table;
+    $first_failed = $failed[0];
+    push @tooltip_lines, @failed;
+}
+
+my $class = (scalar @fail_table == 0) ? '' : 'warning';
+my $text = (defined $first_failed) ? "Failed: $first_failed" : ($first_timer // "none");
+my $tooltip = join('\n', @tooltip_lines);
+
+printf '{"class":"%s","text":" %s","tooltip":"%s"}', $class, $text, $tooltip;

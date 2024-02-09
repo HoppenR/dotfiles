@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+integer fanspeed
+fanspeed=$(awk '/speed/ { print $NF }' /proc/acpi/ibm/fan)
+
+# NOTE: 65535 seems to be a special value
+#       it might mean that the fan is about to slow down
+float percentage
+if (( fanspeed == 65535.0 )); then
+    percentage=100.0
+else
+    percentage=$(( fanspeed / 31.0 ))
+fi
+
+echo -n "{ \
+    \"percentage\": ${percentage}, \
+    \"tooltip\": \"${fanspeed}rpm\", \
+}"

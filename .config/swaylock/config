@@ -1,0 +1,10 @@
+#
+# ~/.config/swaylock/config
+#
+
+ignore-empty-password
+image=$(cat "$HOME/.cache/wal/wal")
+indicator-idle-visible
+indicator-radius=75
+indicator-thickness=13
+scaling=fill

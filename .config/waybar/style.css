@@ -1,0 +1,125 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+* {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+/* Parent class for most things (not tooltips) */
+window#waybar {
+    /* Hide the main bar background */
+    background-color: transparent;
+    /* Set text properties for everything on the bar */
+    color: @foreground;
+    text-shadow: 2px 2px 3px @background;
+}
+
+/* Standard look for the three main sections:
+ * Left: Software indicators
+ * Center: The name of the focused window, or transparent if there are none
+ * Right: Hardware indicators
+ */
+.modules-center,
+.modules-left,
+.modules-right {
+    background: alpha(@background, 0.6);
+    border-radius: 15px;
+    margin: 2px 2px 0px 2px;
+    padding: 3px 4px;
+    /* Background transition for `.modules-center`
+     * when switching from/to empty/nonempty workspaces */
+    transition-duration: .4s;
+    transition-property: background-color;
+}
+/* Hide titlebar on empty workspace */
+window#waybar.empty .modules-center {
+    background-color: transparent;
+}
+
+/* Standard look for all simple modules, scratchpad, workspace, and tray */
+#backlight,
+#battery,
+#battery.charging,
+#battery.plugged,
+#clock,
+#cpu,
+#custom-fan,
+#custom-gpu,
+#custom-timers,
+#disk,
+#idle_inhibitor,
+#language,
+#memory,
+#network,
+#pulseaudio,
+#scratchpad,
+#temperature,
+#tray,
+#workspaces > button {
+    background-color: @color8;
+    border-color: transparent;
+    border-radius: 10px;
+    border-width: 0px;
+    color: inherit;
+    font-weight: bold;
+    margin: 2px;
+    min-height: 32px;
+    min-width: 16px;
+    padding: 0px 10px;
+    text-shadow: inherit;
+    transition-duration: .2s;
+    transition-property: background-color;
+}
+/* Set a width for scratchpad/workspace that is wide enough not to fluctuate */
+#scratchpad,
+#workspaces > button {
+    min-width: 40px;
+    /* Fix for "workspace buttons have a strange hover effect", FAQ on github */
+    background-image: none;
+}
+/* Focus workspace should highlight; bg-color transitions, box-shadow instant */
+#workspaces > button.focused {
+    background-color: alpha(@color8, 0.5);
+    box-shadow: inset 0px -2px @color1;
+}
+/* Change background on errors/warnings/activated states */
+#battery.warning:not(.charging),
+#cpu.warning,
+#custom-timers.warning,
+#disk.warning,
+#idle_inhibitor.activated,
+#language.ru,
+#memory.warning,
+#network.disconnected,
+#pulseaudio.muted,
+#workspaces > button.urgent {
+    background-color: @color2;
+}
+/* Change background on critical states */
+#battery.critical:not(.charging),
+#cpu.critical,
+#disk.critical,
+#memory.critical,
+#temperature.critical  {
+    background-color: @color1;
+}
+/* #mode and #window has no special style, just pad the text slightly */
+#mode,
+#window {
+    all: unset;
+    padding: 0px 8px;
+}
+
+/* Tray highlight settings */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @color1;
+}
+/* Make hovered workspace slight transparent .focused, :not(.focused) */
+#workspaces > button:hover {
+    box-shadow: inset 0px -2px @color1;
+    opacity: 0.8;
+}

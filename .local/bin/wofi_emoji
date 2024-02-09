@@ -1,0 +1,40 @@
+#!/usr/bin/env zsh
+# Original script from https://github.com/Zeioth/wofi-emoji
+# Changes:
+#          1. Separated data file
+#          2. Command line options get passed to wofi
+#          3. Descriptive error message
+#          4. Tab separator allows custom entries even if they contain spaces
+
+set -euo pipefail
+
+emoji_file="${XDG_CACHE_HOME:-$HOME/.cache}/emoji-en-US"
+
+if [[ -r "$emoji_file" ]]; then
+    emoji="$(wofi --show=dmenu --prompt="emoji" "$@" < "$emoji_file" \
+        | awk --field-separator='\t' '{ printf $1 }')"
+    wl-copy "$emoji"
+    exit
+fi
+
+# Highlight options for displaying the command to fetch and format $emoji_file
+declare -a highlight_opts=(
+    "--out-format=xterm256"
+    "--style=${HIGHLIGHT_STYLE:-pablo}"
+    "--syntax=zsh"
+    # "${HIGHLIGHT_OPTIONS:-}"
+)
+HIGHLIGHT_OPTIONS="${highlight_opts[@]}"
+
+cat >&2 << EOMSG
+Error: Emoji file ($emoji_file) not found or not readable
+Consider running the following command to fetch and format the file:
+EOMSG
+
+highlight >&2 << "EOMSG"
+curl --location 'https://github.com/muan/emojilib/raw/main/dist/emoji-en-US.json' \
+    | jq --raw-output >> "${XDG_CACHE_HOME:-$HOME/.cache}/emoji-en-US" \
+        'to_entries[] | .key + "\t" + (.value | join(" ") | gsub("_"; " "))'
+EOMSG
+
+exit 2

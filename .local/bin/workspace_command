@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+
+from argparse import (
+    ArgumentParser, ArgumentTypeError, Namespace, _ArgumentGroup,
+)
+from functools import partial
+from sys import exit
+from types import TracebackType
+from typing import Any
+
+from i3ipc.con import Con
+from i3ipc.connection import Connection
+from i3ipc.events import IpcBaseEvent, WorkspaceEvent
+
+# Represents a workspace number that is not in use
+INVALID_WORKSPACE: int = -1
+
+
+class ScopedConnection(Connection):
+    """
+    A context manager that ensures proper cleanup for a Connection instance.
+    """
+
+    def __enter__(self) -> Connection:
+        return self
+
+    def __exit__(
+            self,
+            exc_type: type[BaseException],
+            exc_value: BaseException,
+            traceback: TracebackType,
+    ) -> None:
+        _ = exc_type  # Unused variable
+        _ = exc_value  # Unused variable
+        _ = traceback  # Unused variable
+        self.main_quit()
+
+
+def parse_workspace_assignment(value: str) -> tuple[int, str]:
+    """
+    Parse command line option in the format "num:mode", return tuple(int, str).
+    """
+    parts: list[str] = value.split(':')
+    if len(parts) == 2:
+        num, mode = parts
+        return int(num), mode
+    else:
+        raise ArgumentTypeError('Invalid assignment format: {}'.format(value))
+
+
+def get_num_or(obj: Con | None, default: int) -> int:
+    """
+    Get the 'num' attribute of a i3ipc.con.Con or return the default value.
+    """
+    num_attr: Any = getattr(obj, 'num', None)
+    if isinstance(num_attr, int):
+        return num_attr
+    return default
+
+
+def set_workspace_mode(
+        ipc_interface: Connection,
+        event: IpcBaseEvent,
+        to_ws: list[tuple[int, str]] | None,
+        from_ws: list[tuple[int, str]] | None,
+) -> None:
+    """
+    Handle 'workspace::focus' to set mode from cmdline args, first match
+        1. Match `to_ws` for the current workspace number.
+        2. Match `from_ws` for the old workspace number.
+    """
+    if isinstance(event, WorkspaceEvent):
+        if to_ws:
+            cur_ws_num: int = get_num_or(event.current, INVALID_WORKSPACE)
+            for num, cmd in to_ws:
+                if cur_ws_num == num:
+                    print("running: {}".format(cmd))
+                    ipc_interface.command(cmd)
+        if from_ws:
+            old_ws_num: int = get_num_or(event.old, INVALID_WORKSPACE)
+            for num, cmd in from_ws:
+                if old_ws_num == num:
+                    ipc_interface.command(cmd)
+                    print("running: {}".format(cmd))
+
+
+def main() -> int:
+    parser: ArgumentParser = ArgumentParser(
+        description='Tool to assign i3/sway commands to workspace changes',
+    )
+    group: _ArgumentGroup = parser.add_argument_group(
+        title='Workspace Assignment Options',
+        description='Multiple per type is supported,'
+        ' at least one argument in this group is required',
+    )
+    group.add_argument(
+        '-t', '--to-workspace',
+        action='append',
+        help='Run command when entering a workspace using a "num:cmd"'
+        '-syntax. Example: \'3:mode "$mode_default"\'',
+        type=parse_workspace_assignment,
+    )
+    group.add_argument(
+        '-f', '--from-workspace',
+        action='append',
+        help='Run command when leaving a workspace using a "num:cmd"'
+        '-syntax. Example: \'3:mode "$mode_minimal"\'',
+        type=parse_workspace_assignment,
+    )
+    args: Namespace = parser.parse_args()
+    if not (args.to_workspace or args.from_workspace):
+        parser.error('At least one Workspace Assignment Option is required')
+
+    workspace_focus_callback: partial = partial(
+        set_workspace_mode,
+        to_ws=getattr(args, 'to_workspace'),
+        from_ws=getattr(args, 'from_workspace'),
+    )
+
+    with ScopedConnection() as ipc_interface:
+        ipc_interface.on('workspace::focus', workspace_focus_callback)
+        ipc_interface.main()
+    return 0
+
+
+if __name__ == '__main__':
+    exit(main())

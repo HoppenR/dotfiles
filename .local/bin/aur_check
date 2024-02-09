@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+if [[ "$(ssh-add -l)" != "The agent has no identities." ]]; then
+    dirs=$(ls -1 ~/.cache/pacman)
+    parallel <<< "$dirs" '
+    echo {}
+    pushd ~/.cache/pacman/{}
+    git pull --rebase
+    popd
+    '
+else
+    echo "No ssh agents"
+fi

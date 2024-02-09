@@ -1,0 +1,14 @@
+# Vim: set ft=readline :
+# Sane vim-movement defaults for programs like units, bluetoothctl, iwctl
+set completion-ignore-case on
+set editing-mode vi
+set keyseq-timeout 50
+set show-all-if-ambiguous on
+set show-mode-in-prompt on
+set vi-cmd-mode-string \1\e[0 q\2
+set vi-ins-mode-string \1\e[5 q\2
+
+set keymap vi-insert
+"\C-b":beginning-of-line
+"\C-e":end-of-line
+"\C-l":clear-screen

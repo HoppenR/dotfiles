@@ -1,0 +1,57 @@
+#entry {
+  border-radius: 3px;
+  padding: 2px 3px 2px 3px;
+}
+
+#entry:selected {
+  background-color: --wofi-color1;
+}
+
+#text:selected {
+  color: --wofi-color0;
+}
+
+#window {
+  padding: 2px;
+  background-color: --wofi-color8;
+  border: 5px solid --wofi-color9;
+  border-radius: 2px;
+  font-size: 15px;
+}
+
+#input {
+  background-color: --wofi-color7;
+  border: 2px solid --wofi-color9;
+  color: --wofi-color0;
+  padding: 3px 5px 3px 5px;
+  border-radius: 5px;
+  font-family: 'monospace';
+}
+
+#inner-box {
+  color: --wofi-color0;
+  padding: 2px;
+  background-color: transparent;
+}
+
+#outer-box {
+  margin: 15px;
+  background-color: transparent;
+}
+
+#scroll {
+  margin-top: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+#text {
+  padding: 3px;
+  background-color: transparent;
+  font-family: 'monospace';
+}
+
+#img {
+  background-color: transparent;
+  padding: 5px;
+}
