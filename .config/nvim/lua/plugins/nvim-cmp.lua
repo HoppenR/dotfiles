@@ -21,15 +21,15 @@ local function insert_prev_or_complete(cmp)
 end
 
 -- Scroll to next entry, only selecting it, or use sensible fallback
-local function select_next_or_fallback(cmp)
-    return function(fallback)
-        if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-            fallback()
-        end
-    end
-end
+--local function select_next_or_fallback(cmp)
+--    return function(fallback)
+--        if cmp.visible() then
+--            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+--        else
+--            fallback()
+--        end
+--    end
+--end
 
 -- Scroll to prev entry, only selecting it, or use sensible fallback
 local function select_prev_or_fallback(cmp)
@@ -51,10 +51,10 @@ local function default_cmp_keybinds(cmp)
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'c', 'i' }),
         ['<C-n>'] = cmp.mapping(insert_next_or_complete(cmp), { 'c', 'i' }),
         ['<C-p>'] = cmp.mapping(insert_prev_or_complete(cmp), { 'c', 'i' }),
-        ['<C-y>'] = cmp.mapping(cmp.mapping.confirm(), { 'c', 'i' }),
+        ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'c', 'i' }),
         ['<Tab>'] = {
             c = insert_next_or_complete(cmp),
-            i = select_next_or_fallback(cmp),
+            -- i = select_next_or_fallback(cmp),
         },
         ['<S-Tab>'] = {
             c = insert_prev_or_complete(cmp),
@@ -81,6 +81,7 @@ return {
             completion = {
                 keyword_length = 3,
             },
+            preselect = cmp.PreselectMode.None,
             mapping = cmp_shared_mappings,
             snippet = {
                 expand = function(args)

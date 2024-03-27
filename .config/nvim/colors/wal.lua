@@ -42,6 +42,7 @@ else
 end
 
 local StandoutBackground = fns.brighten_color(vim.g.color0, 20)
+-- local HighlightBackground = fns.brighten_color(vim.g.color0, 25)
 
 -- Set terminal_color for embedded nvim terminals
 for i = 0, 15 do
@@ -57,10 +58,12 @@ local highlights = {
     ['@lsp.typemod.variable.defaultLibrary'] = { link = 'Special' },
     ['@lsp.typemod.variable.global']         = { link = 'Structure' },
     ['@namespace']                           = { link = 'Special' },
-    ['@neorg.anchors.declaration']           = { fg = vim.g.color1 },
-    ['@neorg.links.file']                    = { fg = vim.g.color6 },
-    ['@neorg.markup.inline_math']            = { italic = true },
-    ['@neorg.markup.italic.norg']            = { italic = true },
+    ['@neorg.links.description']             = { fg = vim.g.color7, underline = true, special = vim.g.color3 },
+    ['@neorg.links.location.url.norg']       = { link = '@text.uri' },
+    -- ['@neorg.anchors.declaration']           = { fg = vim.g.color1 },
+    -- ['@neorg.links.file']                    = { fg = vim.g.color6 },
+    -- ['@neorg.markup.inline_math']            = { italic = true },
+    -- ['@neorg.markup.italic.norg']            = { italic = true },
     -- ['@neorg.tags.ranged_verbatim.code_block'] = { bg = vim.g.color0 },
     ['@text.literal.block']                  = { bg = vim.g.color0 },
     ['@text.reference']                      = { link = '@text.uri' },
@@ -105,12 +108,15 @@ local highlights = {
     ['Function']                             = { fg = vim.g.color2 },
     ['Identifier']                           = { fg = vim.g.color7 },
     ['Ignore']                               = { bg = vim.g.color8, fg = vim.g.color0 },
-    ['IncSearch']                            = { bg = vim.g.color5, fg = vim.g.color0, underline = true , special = 'Black'},
+    ['IncSearch']                            = { bg = vim.g.color5, fg = vim.g.color0, underline = true, special = 'Black' },
     ['Include']                              = { fg = vim.g.color4 },
     ['Keyword']                              = { fg = vim.g.color5, italic = true },
     ['Label']                                = { fg = vim.g.color4 },
     ['LineNr']                               = { fg = vim.g.color6 },
     ['LspInfoBorder']                        = { fg = vim.g.color7 },
+    ['LspReferenceRead']                     = { underdotted = true },
+    ['LspReferenceText']                     = { underdotted = true },
+    ['LspReferenceWrite']                    = { underdotted = true },
     ['MatchParen']                           = { bg = vim.g.color1, fg = vim.g.color0 },
     ['ModeMsg']                              = { fg = vim.g.color7 },
     ['MoreMsg']                              = { fg = vim.g.color2 },
@@ -164,7 +170,7 @@ local highlights = {
     ['Title']                                = { link = 'Special' },
     ['Todo']                                 = { bg = vim.g.color2, fg = vim.g.color0 },
     ['Type']                                 = { fg = vim.g.color3 },
-    ['Underlined']                           = { fg = vim.g.color7, underline = true },
+    ['Underlined']                           = { fg = vim.g.color7, underline = true, special = vim.g.color7 },
     ['VertSplit']                            = { fg = vim.g.color2 },
     ['Visual']                               = { bg = vim.g.color5, fg = vim.g.color0 },
     ['VisualNOS']                            = { fg = vim.g.color1 },

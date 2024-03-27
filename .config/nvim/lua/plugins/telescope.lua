@@ -7,9 +7,15 @@ local function default_telescope_binds()
     vim.keymap.set('n', '<leader>g', builtin.live_grep)
     vim.keymap.set('n', '<leader>i', builtin.lsp_implementations)
     vim.keymap.set('n', '<leader>l', builtin.diagnostics)
+    vim.keymap.set('n', '<leader>o', builtin.oldfiles)
     vim.keymap.set('n', '<leader>r', builtin.lsp_references)
     vim.keymap.set('n', '<leader>s', builtin.lsp_document_symbols)
-    vim.keymap.set('n', '<leader>t', builtin.current_buffer_fuzzy_find)
+    vim.keymap.set('n', '<leader>t', function()
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+            winblend = 10,
+            previewer = false,
+        }))
+    end)
 end
 
 -- Return Lazy config

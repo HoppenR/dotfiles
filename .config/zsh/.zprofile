@@ -37,4 +37,5 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 ### EXTRA PATH DIRECTORIES
 PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/projects/personal/pintos/src/utils:$PATH"
 export PATH

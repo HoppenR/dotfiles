@@ -45,6 +45,15 @@ return {
             'vimdoc',
             'xml',
         },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = '<M-v>',
+                node_incremental = '<M-v>',
+                -- scope_incremental = 'grc',
+                node_decremental = '<M-S-v>',
+            },
+        },
         additional_vim_regex_highlighting = false,
         highlight = { enable = true },
         indent = { enable = true },

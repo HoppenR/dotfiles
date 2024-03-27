@@ -18,6 +18,7 @@ return {
         'nvim-treesitter/nvim-treesitter',
     },
     ft = 'norg',
+    version = "v7.0.0",
     init = function()
         -- Don't show listchars in neorg buffers
         local NorgSettings = vim.api.nvim_create_augroup('NorgSettings', { clear = true })
@@ -76,6 +77,7 @@ return {
                     close_after_use = true,
                 },
             },
+            -- ['core.ui.calendar'] = {},
         },
     },
 }

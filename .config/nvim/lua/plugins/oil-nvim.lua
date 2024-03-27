@@ -34,7 +34,10 @@ end
 ---@return table<string, function|string>
 local function default_oil_binds()
     return {
-        ['<C-b>'] = bookmark_prompt,
+        ['<C-b>'] = {
+            desc = "Open the bookmark prompt",
+            callback = bookmark_prompt,
+        },
         -- ['cd'] = 'cd',
     }
 end

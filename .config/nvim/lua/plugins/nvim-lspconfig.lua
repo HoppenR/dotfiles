@@ -107,5 +107,29 @@ return {
                 end
             })
         end
+
+        local LspSettings = vim.api.nvim_create_augroup(
+            'LspSettings',
+            { clear = true }
+        )
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = LspSettings,
+            callback = function(event)
+                vim.api.nvim_create_autocmd(
+                    'CursorHold',
+                    {
+                        buffer = event.buf,
+                        callback = vim.lsp.buf.document_highlight,
+                    }
+                )
+                vim.api.nvim_create_autocmd(
+                    'CursorMoved',
+                    {
+                        buffer = event.buf,
+                        callback = vim.lsp.buf.clear_references,
+                    }
+                )
+            end
+        })
     end,
 }

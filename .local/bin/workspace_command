@@ -6,7 +6,7 @@ from argparse import (
 from functools import partial
 from sys import exit
 from types import TracebackType
-from typing import Any
+from typing import Any, Optional, Callable
 
 from i3ipc.con import Con
 from i3ipc.connection import Connection
@@ -48,7 +48,7 @@ def parse_workspace_assignment(value: str) -> tuple[int, str]:
         raise ArgumentTypeError('Invalid assignment format: {}'.format(value))
 
 
-def get_num_or(obj: Con | None, default: int) -> int:
+def get_num_or(obj: Optional[Con], default: int) -> int:
     """
     Get the 'num' attribute of a i3ipc.con.Con or return the default value.
     """
@@ -61,8 +61,8 @@ def get_num_or(obj: Con | None, default: int) -> int:
 def set_workspace_mode(
         ipc_interface: Connection,
         event: IpcBaseEvent,
-        to_ws: list[tuple[int, str]] | None,
-        from_ws: list[tuple[int, str]] | None,
+        to_ws: list[tuple[int, str]],
+        from_ws: list[tuple[int, str]],
 ) -> None:
     """
     Handle 'workspace::focus' to set mode from cmdline args, first match
@@ -111,14 +111,14 @@ def main() -> int:
     if not (args.to_workspace or args.from_workspace):
         parser.error('At least one Workspace Assignment Option is required')
 
-    workspace_focus_callback: partial = partial(
+    ws_focus_callback: Callable[[Connection, IpcBaseEvent], None] = partial(
         set_workspace_mode,
         to_ws=getattr(args, 'to_workspace'),
         from_ws=getattr(args, 'from_workspace'),
     )
 
     with ScopedConnection() as ipc_interface:
-        ipc_interface.on('workspace::focus', workspace_focus_callback)
+        ipc_interface.on('workspace::focus', ws_focus_callback)
         ipc_interface.main()
     return 0
 

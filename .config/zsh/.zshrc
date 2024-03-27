@@ -15,6 +15,7 @@ zstyle ':completion:*' menu select
 # Options
 setopt    MENU_COMPLETE
 setopt    PROMPT_SUBST
+setopt    SHARE_HISTORY
 setopt no_CASE_GLOB
 stty -ixoff
 stty -ixon
@@ -74,7 +75,7 @@ alias rm='rm -i'       # Ask for confirmation before deletion
 alias units='units --history ${XDG_STATE_HOME:-$HOME/.local/state}/units/history'
 alias vim='nvim'
 alias vimdiff='nvim -d'
-alias z='zcalc -f'
+alias z='zcalc'
 # Color aliases
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'

@@ -221,7 +221,7 @@
             "on-scroll"     : 1,
             "weeks-pos"     : "left",
         },
-        "format": "{:%d %b %R}",
+        "format": "{:L%d %b %R}",
         "tooltip-format": "<big>{calendar}</big>",
     },
 }

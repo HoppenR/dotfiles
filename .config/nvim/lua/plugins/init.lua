@@ -2,6 +2,7 @@
 -- ~/.config/nvim/lua/plugins/init.lua
 --
 
+-- TODO: Switch to rocks.nvim
 -- IDEA: Github copilot?
 -- IDEA: lewis6991/gitsigns.nvim
 

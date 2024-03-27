@@ -37,7 +37,7 @@ vim.o.fileignorecase = true
 vim.o.ignorecase = true
 vim.o.list = true
 vim.o.number = true
-vim.o.relativenumber = true
+vim.o.relativenumber = false
 vim.o.ruler = false
 vim.o.smartcase = true
 vim.o.splitbelow = true
@@ -72,12 +72,13 @@ vim.o.textwidth = 80
 vim.o.timeoutlen = 500
 vim.o.titlestring = '%F — NVIM'
 vim.o.ttimeoutlen = 50
+vim.o.updatetime = 500
 vim.o.winbar = '%=%f %r%m%='
 vim.o.winblend = 30
 
 --- LIST OPTIONS
 vim.opt.cinoptions = { ':0', 'g0', '(0', 'W4', 'l1' }
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
 vim.opt.foldmarker = { '{{{', '}}}' }
 -- NOTE: vim.opt_local.listchars['leadmultispace'] is set in AutoSetIndentChars
 vim.opt.listchars = { extends = '▸', nbsp = '◇', tab = '│ ', trail = '∘' }
@@ -86,17 +87,17 @@ vim.opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
 --- MAPPINGS
 vim.keymap.set('n', '<C-S-j>', '<cmd>move+1<CR>')
 vim.keymap.set('n', '<C-S-k>', '<cmd>move-2<CR>')
-vim.keymap.set('n', '<C-w>N', '<cmd>vnew<CR>')
-vim.keymap.set('n', '<C-w>T', '<cmd>vsplit +terminal<CR>')
-vim.keymap.set('n', '<C-w>t', '<cmd>split +terminal<CR>')
+vim.keymap.set('n', '<C-w>N', vim.cmd.vnew, { desc = "Open new vertical split" })
+vim.keymap.set('n', '<C-w>n', vim.cmd.new, { desc = "Open new horizontal split" })
 vim.keymap.set('n', '<F1>', '<cmd>setlocal spell!<CR>')
 vim.keymap.set('n', '<M-S-a>', vim.treesitter.inspect_tree, { desc = 'Show language tree' })
 vim.keymap.set('n', '<M-S-n>', '<cmd>cnext<CR>')
 vim.keymap.set('n', '<M-S-p>', '<cmd>cprevious<CR>')
 vim.keymap.set('n', '<M-a>', vim.show_pos, { desc = 'Show language items' })
+vim.keymap.set('n', '<M-q>', vim.cmd.terminal, { desc = 'Open terminal window' })
 vim.keymap.set('n', '_', ':lua ')
-vim.keymap.set('n', 'ä', '<cmd>LspInfo<CR>')
-vim.keymap.set('n', 'ö', '<cmd>Lazy<CR>')
+vim.keymap.set('n', 'ä', vim.cmd.LspInfo, { desc = 'Open LSP info' })
+vim.keymap.set('n', 'ö', vim.cmd.Lazy, { desc = 'Open Lazy' })
 vim.keymap.set('v', '<C-S-j>', ":move '>+1<CR>gv", { desc = 'Move visual selection down' })
 vim.keymap.set('v', '<C-S-k>', ":move '<-2<CR>gv", { desc = 'Move visual selection up' })
 vim.keymap.set('v', '¤', 'c<C-r>=<C-r>"<CR><Esc>', { desc = 'Evaluate highlighted expr' })
@@ -151,14 +152,6 @@ vim.api.nvim_create_autocmd(
         pattern = 'term://*',
         group = TerminalSettings,
         callback = fns.set_terminal_settings,
-    }
-)
-vim.api.nvim_create_autocmd(
-    'TermClose',
-    {
-        pattern = 'term://*',
-        group = TerminalSettings,
-        command = 'bdelete',
     }
 )
 
