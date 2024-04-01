@@ -1,7 +1,6 @@
 ### XDG STANDARD SETTINGS
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config" export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 
@@ -37,5 +36,5 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 ### EXTRA PATH DIRECTORIES
 PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/projects/personal/pintos/src/utils:$PATH"
+PATH="$HOME/Documents/LiU/TDIU16/tdiu16-labs/src/utils/:$PATH"
 export PATH

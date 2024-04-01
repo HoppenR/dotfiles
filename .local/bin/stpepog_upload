@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+screenshots=(~/Pictures/screenshots/*.png)
+
+links=($(curl -F"file=@${screenshots[-1]}" https://st.pepog.com))
+
+${BROWSER:-firefox} ${links[1]}

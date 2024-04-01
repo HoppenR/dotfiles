@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -euo pipefail
+
 if [[ "$(ssh-add -l)" != "The agent has no identities." ]]; then
     dirs=$(ls -1 ~/.cache/pacman)
     parallel <<< "$dirs" '

@@ -4,6 +4,8 @@
 # $2 = number to change light by (0 = undefined behavior)
 # $3 = name of interface (defaults to sysfs/backlight/auto)
 
+set -euo pipefail
+
 add=${1:-U}
 integer amt=${2:-5}
 interface=${3:-sysfs/backlight/auto}
