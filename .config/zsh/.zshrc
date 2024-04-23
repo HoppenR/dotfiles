@@ -121,4 +121,6 @@ export ZSH_HIGHLIGHT_STYLES[command]=fg=red,bold
 export ZSH_HIGHLIGHT_STYLES[alias]=fg=red,bold
 
 # opam configuration
-[[ ! -r /home/christoffer/.local/share/opam/opam-init/init.zsh ]] || source /home/christoffer/.local/share/opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+if [[ -r ${XDG_DATA_HOME:-$HOME/.local/share}/opam/opam-init/init.zsh ]]; then
+    source ${XDG_DATA_HOME:-$HOME/.local/share}/opam/opam-init/init.zsh > /dev/null 2> /dev/null
+fi

@@ -4,5 +4,6 @@
 
 timeout 300 'swaylock --daemonize'
 timeout 450 'swaymsg "output eDP-1 power off"' resume 'swaymsg "output eDP-1 power on"'
+timeout 450 'swaymsg "output HDMI-A-1 power off"' resume 'swaymsg "output HDMI-A-1 power on"'
 timeout 600 'systemctl suspend'
 before-sleep 'umount -- $HOME/.local/mnt/*; swaylock --daemonize'

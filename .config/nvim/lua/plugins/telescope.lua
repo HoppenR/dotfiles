@@ -12,7 +12,6 @@ local function default_telescope_binds()
     vim.keymap.set('n', '<leader>s', builtin.lsp_document_symbols)
     vim.keymap.set('n', '<leader>t', function()
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-            winblend = 10,
             previewer = false,
         }))
     end)
@@ -26,7 +25,6 @@ return {
         local actions = require('telescope.actions')
         require('telescope').setup({
             defaults = {
-                winblend = vim.o.winblend,
                 scroll_strategy = 'limit',
                 mappings = {
                     n = {

@@ -52,7 +52,7 @@ vim.o.colorcolumn = '80'
 vim.o.conceallevel = 2
 vim.o.foldmethod = 'marker'
 vim.o.laststatus = 3
-vim.o.pumblend = 30
+vim.o.pumblend = 0
 vim.o.shiftwidth = 0
 vim.o.shortmess = 'AFOTWiost'
 vim.o.statusline = table.concat({
@@ -74,7 +74,7 @@ vim.o.titlestring = '%F — NVIM'
 vim.o.ttimeoutlen = 50
 vim.o.updatetime = 500
 vim.o.winbar = '%=%f %r%m%='
-vim.o.winblend = 30
+vim.o.winblend = 0
 
 --- LIST OPTIONS
 vim.opt.cinoptions = { ':0', 'g0', '(0', 'W4', 'l1' }

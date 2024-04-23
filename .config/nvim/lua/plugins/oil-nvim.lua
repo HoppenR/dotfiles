@@ -14,7 +14,7 @@ local oil_bookmarks = {
 
 -- Ranger-like 'g' keybind for selecting a bookmarked location via a single key
 local function bookmark_prompt()
-    local oil = require("oil")
+    local oil = require('oil')
     local fns = require('functions')
     ---@type string[]
     local prompt_lines = { 'key' .. '\t\t' .. 'location' }
@@ -35,7 +35,7 @@ end
 local function default_oil_binds()
     return {
         ['<C-b>'] = {
-            desc = "Open the bookmark prompt",
+            desc = 'Open the bookmark prompt',
             callback = bookmark_prompt,
         },
         -- ['cd'] = 'cd',
@@ -46,16 +46,16 @@ end
 -- Return Lazy config
 return {
     'stevearc/oil.nvim',
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-        local oil = require("oil")
+        local oil = require('oil')
         oil.setup({
             default_file_explorer = true,
             columns = {
-                "icon",
-                -- "permissions",
-                -- "size",
-                -- "mtime",
+                'icon',
+                -- 'permissions',
+                -- 'size',
+                -- 'mtime',
             },
             keymaps = default_oil_binds(),
         })

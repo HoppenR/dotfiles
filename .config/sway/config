@@ -40,8 +40,9 @@ output eDP-1 {
 }
 
 output HDMI-A-1 {
-    mode 1920x1080@60.001Hz
+    bg $wallpaper fill
     adaptive_sync off
+    mode 1920x1080@60.001Hz
 }
 
 
@@ -136,11 +137,10 @@ bindsym $mod_move+Shift+9 move container to workspace number 9
 #
 ## APPLICATIONS:
 #
-bindsym $mod_apps+Return exec $term
+bindsym Mod4+Return exec kitty --single-instance
 bindsym $mod_apps+Space  exec makoctl dismiss --all
 bindsym $mod_apps+a      exec pavucontrol
 bindsym $mod_apps+b      exec killall -SIGUSR1 waybar
-bindsym $mod_apps+c      exec cliphist list | $dmenu --prompt=cliphist | cliphist decode | wl-copy
 bindsym $mod_apps+d      exec $drun_menu
 bindsym $mod_apps+e      exec $term -e $SHELL -c "nvim"
 bindsym $mod_apps+m      exec $emenu
@@ -167,7 +167,6 @@ bindsym XF86MonBrightnessUp   exec light_adjust A 5
 ## AUTOSTART:
 #
 exec swayidle -w
-exec wl-paste --watch cliphist store
 exec workspace_command -t '3:mode "$mode_minimal"' -f '3:mode "$mode_default"'
 
 # Xwayland

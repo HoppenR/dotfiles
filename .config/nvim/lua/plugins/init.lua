@@ -52,4 +52,11 @@ return {
     -- 'hrsh7th/cmp_luasnip'            ./nvim-cmp.lua
     -- 'nvim-tree/nvim-web-devicons'    ./oil-nvim.lua
     --                                  ./telescope.lua
+
+    -- {
+    --     'letieu/btw.nvim',
+    --     opts = {
+    --         text = "I use Arch (BTW)",
+    --     }
+    -- }
 }
