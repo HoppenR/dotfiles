@@ -59,11 +59,11 @@ bindkey -M visual     '¤'  edit-command-line
 
 # Environment variables
 DISABLE_AUTO_TITLE='true'
-HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+HISTFILE="${XDG_STATE_HOME}/zsh/history"
 HISTSIZE=10000
 KEYTIMEOUT=1
 SAVEHIST=10000
-ZCALC_HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/zcalc_history"
+ZCALC_HISTFILE="${XDG_STATE_HOME}/zsh/zcalc_history"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=102'
 
 # Aliases
@@ -72,7 +72,7 @@ alias :q='exit'
 alias cp='cp -i'       # Ask for confirmation before overwrite
 alias mv='mv -i'       # Ask for confirmation before overwrite
 alias rm='rm -i'       # Ask for confirmation before deletion
-alias units='units --history ${XDG_STATE_HOME:-$HOME/.local/state}/units/history'
+alias units='units --history ${XDG_STATE_HOME}/units/history'
 alias vim='nvim'
 alias vimdiff='nvim -d'
 alias z='zcalc'
@@ -88,6 +88,10 @@ unalias run-help
 vi-yank-arg() {
   NUMERIC=1 zle .vi-add-next
   zle .insert-last-word
+}
+timer() {
+    sleep $(( ${1:-10} * 60.0 ))
+    notify-send "${2:-Timer done!}"
 }
 
 # Widgets
@@ -114,13 +118,12 @@ fi
 if [[ -r /usr/share/fzf/completion.zsh ]]; then
     source /usr/share/fzf/completion.zsh
 fi
+# opam configuration
+if [[ -r ${OPAMROOT:-$XDG_DATA_HOME/opam}/opam-init/init.zsh ]]; then
+    source ${OPAMROOT:-$XDG_DATA_HOME/opam}/opam-init/init.zsh > /dev/null 2> /dev/null
+fi
 
 # Styles for zsh-syntax-highlighting
 export ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=white
 export ZSH_HIGHLIGHT_STYLES[command]=fg=red,bold
 export ZSH_HIGHLIGHT_STYLES[alias]=fg=red,bold
-
-# opam configuration
-if [[ -r ${XDG_DATA_HOME:-$HOME/.local/share}/opam/opam-init/init.zsh ]]; then
-    source ${XDG_DATA_HOME:-$HOME/.local/share}/opam/opam-init/init.zsh > /dev/null 2> /dev/null
-fi

@@ -1,0 +1,61 @@
+#!/usr/bin/gawk -f
+
+# Converts subtitle timings by an amount of milliseconds set in `adjust_amount`
+# Expects:
+# - dos file format
+# - the standard subtitle format:
+#     42\r
+#     12:34:56,789 --> 12:34:56,789\r
+#     - First line of subtitle\r
+#     - rest of lines...\r
+#     \r
+#     43\r
+#     12:34:56,789 --> 12:34:56,789\r
+#     ...
+
+BEGIN {
+    RS="\r\n\r\n"
+    ORS="\r\n\r\n"
+    FS="\r\n"
+    OFS="\r\n"
+    if (ARGC != 3) {
+        exit(2)
+    }
+    adjust_amount = int(ARGV[2])
+    delete ARGV[2]
+}
+
+function convertMillisToTime(milliseconds) {
+    hours = int(milliseconds / 3600000)
+    milliseconds %= 3600000
+    minutes = int(milliseconds / 60000)
+    milliseconds %= 60000
+    seconds = int(milliseconds / 1000)
+    milliseconds %= 1000
+    return sprintf("%02d:%02d:%02d,%03d", hours, minutes, seconds, milliseconds)
+}
+
+{
+    split($2, timings, /,|:| --> /)
+    startmSec = timings[1] * 3600000 + \
+              timings[2] * 60000 + \
+              timings[3] * 1000 + \
+              timings[4] * 1 + \
+              adjust_amount
+    endmSec = timings[5] * 3600000 + \
+            timings[6] * 60000 + \
+            timings[7] * 1000 + \
+            timings[8] * 1 + \
+            adjust_amount
+    timing_line = sprintf("%s --> %s", convertMillisToTime(startmSec), convertMillisToTime(endmSec))
+
+    rest_of_line = ""
+    for (i = 3; i <= NF; i++) {
+        rest_of_line = rest_of_line $i
+        if (i < NF) {
+            rest_of_line = rest_of_line OFS
+        }
+    }
+
+    print $1, timing_line, rest_of_line
+}

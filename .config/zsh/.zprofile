@@ -23,19 +23,22 @@ export HIGHLIGHT_STYLE="$HOME/.cache/wal/highlight.theme"
 export HIGHLIGHT_OPTIONS="--line-numbers"
 # `less`:
 export LESS="-FRX -x1,5"
+# fzf-zsh:
+export FZF_ALT_C_COMMAND="fd --strip-cwd-prefix --type directory"
+export FZF_CTRL_T_COMMAND="fd --strip-cwd-prefix --type file"
 
 ### FILE LOCATIONS
-export CARGO_HOME="${XDG_CACHE_HOME:-$HOME/.cache}/cargo"
-export GNUPGHOME="${XDG_STATE_HOME:-$HOME/.local/state}/gnupg"
-export GOPATH="${XDG_CACHE_HOME:-$HOME/.cache}/go"
-export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/readline/config"
-export LESSHISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/less/history"
-export OPAMROOT="${XDG_DATA_HOME:-$HOME/.local/share}/opam"
-export PARALLEL_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/parallel"
-export PULSE_COOKIE="${XDG_DATA_HOME:-$HOME/.local/share}/pulse/cookie"
+export CARGO_HOME="${XDG_CACHE_HOME}/cargo"
+export GNUPGHOME="${XDG_STATE_HOME}/gnupg"
+export GOPATH="${XDG_CACHE_HOME}/go"
+export INPUTRC="${XDG_CONFIG_HOME}/readline/config"
+export LESSHISTFILE="${XDG_STATE_HOME}/less/history"
+export OPAMROOT="${XDG_DATA_HOME}/opam"
+export PARALLEL_HOME="${XDG_CONFIG_HOME}/parallel"
+export PULSE_COOKIE="${XDG_DATA_HOME}/pulse/cookie"
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 ### EXTRA PATH DIRECTORIES
 PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/projects/personal/pintos/src/utils:$PATH"
+PATH="$HOME/Documents/LiU/TDIU16/tdiu16-labs/src/utils/:$PATH"
 export PATH

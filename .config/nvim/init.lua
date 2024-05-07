@@ -9,7 +9,7 @@ vim.cmd.syntax('on')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
-vim.g.neorg_leader = 'm'
+vim.g.neorg_leader = 's'
 
 if vim.fn.has('gui_running') == 1 then
     vim.opt.guifont = { 'monospace', ':h15' }
@@ -70,7 +70,7 @@ vim.o.statusline = table.concat({
 vim.o.tabstop = 4
 vim.o.textwidth = 80
 vim.o.timeoutlen = 500
-vim.o.titlestring = '%F — NVIM'
+vim.o.titlestring = '%F - NVIM'
 vim.o.ttimeoutlen = 50
 vim.o.updatetime = 500
 vim.o.winbar = '%=%f %r%m%='
@@ -103,10 +103,10 @@ vim.keymap.set('v', '<C-S-k>', ":move '<-2<CR>gv", { desc = 'Move visual selecti
 vim.keymap.set('v', '¤', 'c<C-r>=<C-r>"<CR><Esc>', { desc = 'Evaluate highlighted expr' })
 
 -- Viewport
-vim.keymap.set('n', '<Down>', '<C-e>')
-vim.keymap.set('n', '<Left>', 'zh')
-vim.keymap.set('n', '<Right>', 'zl')
-vim.keymap.set('n', '<Up>', '<C-y>')
+-- vim.keymap.set('n', '<Down>', '<C-e>')
+-- vim.keymap.set('n', '<Left>', 'zh')
+-- vim.keymap.set('n', '<Right>', 'zl')
+-- vim.keymap.set('n', '<Up>', '<C-y>')
 
 -- Resize
 vim.keymap.set('n', '<S-Down>', '<C-w>-')

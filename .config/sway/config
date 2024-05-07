@@ -137,7 +137,7 @@ bindsym $mod_move+Shift+9 move container to workspace number 9
 #
 ## APPLICATIONS:
 #
-bindsym Mod4+Return exec kitty --single-instance
+bindsym $mod_apps+Return exec kitty --single-instance
 bindsym $mod_apps+Space  exec makoctl dismiss --all
 bindsym $mod_apps+a      exec pavucontrol
 bindsym $mod_apps+b      exec killall -SIGUSR1 waybar

@@ -90,7 +90,7 @@
         "rewrite": {
             "(.*) — Mozilla Firefox": " $1",
             "(.*) — Mozilla Firefox Private Browsing": "󱀣 $1",
-            "(.*) — NVIM": " $1",
+            "(.*) - NVIM": " $1",
         },
     },
 

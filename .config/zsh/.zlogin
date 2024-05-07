@@ -8,7 +8,7 @@ fi
 if [[ -z "${WAYLAND_DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
     wal -Rqet
     export MOZ_ENABLE_WAYLAND="1"
-    export SDL_VIDEODRIVEVER="wayland"
+    # export SDL_VIDEODRIVER="wayland"
     export XDG_CURRENT_DESKTOP="sway"
     export QT_QPA_PLATFORM="wayland"
     exec sway > "$logdir/wayland-session.log" 2> "$logdir/wayland-session.errors"
