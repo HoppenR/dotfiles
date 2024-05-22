@@ -150,7 +150,7 @@ bindsym $mod_apps+q      exec $run_menu
 bindsym $mod_apps+s      exec $term -e $SHELL -c "streamshower -a $(getent hosts raspberrypi | awk '{print $1}'):8181"
 bindsym $mod_apps+w      exec $BROWSER
 bindsym $mod_apps+x      exec makoctl menu $dmenu
-bindsym Print            exec grim -c -g "$(slurp -d)" -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
+bindsym Print            exec grim -g "$(slurp -d)" -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
 
 # Function keys
 bindsym XF86AudioLowerVolume  exec pactl set-sink-volume @DEFAULT_SINK@ -5%

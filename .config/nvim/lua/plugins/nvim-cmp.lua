@@ -67,12 +67,10 @@ end
 return {
     'hrsh7th/nvim-cmp',
     dependencies = {
-        'L3MON4D3/LuaSnip', -- for snippet support in config
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
-        'saadparwaiz1/cmp_luasnip', -- for snippet source in config
     },
     config = function()
         local cmp = require('cmp')
@@ -85,14 +83,14 @@ return {
             mapping = cmp_shared_mappings,
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body)
+                    vim.snippet.expand(args.body)
                 end,
             },
             sources = cmp.config.sources(
                 {
                     { name = 'neorg' },
                     { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
+                    { name = 'snp' },
                     { name = 'path' },
                 }, {
                     -- Fallback sources
@@ -127,5 +125,8 @@ return {
                 { name = 'buffer' }
             }
         })
+        -- Global keybinds
+        vim.keymap.set({'i', 's'}, '<C-h>', function() vim.snippet.jump(-1) end)
+        vim.keymap.set({'i', 's'}, '<C-l>', function() vim.snippet.jump(1) end)
     end,
 }

@@ -11,24 +11,12 @@ end
 -- Return Lazy config
 return {
     'nvim-neorg/neorg',
-    build = ':Neorg sync-parsers',
     cmd = 'Neorg',
     dependencies = {
-        'nvim-lua/plenary.nvim',
-        'nvim-treesitter/nvim-treesitter',
+        'vhyrro/luarocks.nvim',
     },
     ft = 'norg',
-    version = "v7.0.0",
     init = function()
-        -- Don't show listchars in neorg buffers
-        local NorgSettings = vim.api.nvim_create_augroup('NorgSettings', { clear = true })
-        vim.api.nvim_create_autocmd('BufWinEnter', {
-            pattern = '*.norg',
-            group = NorgSettings,
-            callback = function()
-                vim.opt_local.list = false
-            end
-        })
         -- Global keybinds
         vim.keymap.set('n', vim.g.neorg_leader .. 'p', '<cmd>Neorg workspace personal<CR>')
         vim.keymap.set('n', vim.g.neorg_leader .. 's', '<cmd>Neorg workspace school<CR>')
@@ -77,7 +65,7 @@ return {
                     close_after_use = true,
                 },
             },
-            -- ['core.ui.calendar'] = {},
+            ['core.ui.calendar'] = {},
         },
     },
 }

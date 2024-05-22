@@ -11,16 +11,17 @@ local function default_telescope_binds()
     vim.keymap.set('n', '<leader>r', builtin.lsp_references)
     vim.keymap.set('n', '<leader>s', builtin.lsp_document_symbols)
     vim.keymap.set('n', '<leader>t', function()
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-            previewer = false,
-        }))
+        builtin.current_buffer_fuzzy_find(
+            require('telescope.themes').get_dropdown({ previewer = false, }))
     end)
 end
 
 -- Return Lazy config
 return {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+    },
     config = function()
         local actions = require('telescope.actions')
         require('telescope').setup({

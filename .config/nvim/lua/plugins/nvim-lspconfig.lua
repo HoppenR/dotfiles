@@ -16,16 +16,20 @@ local lsp_servers_list = {
             completion = {
                 callSnippet = 'Replace',
             },
-            -- hint = {
-            --     enable = true,
-            -- },
+            diagnostics = {
+                globals = { "vim" },
+            },
+            hint = {
+                enable = true,
+            },
             runtime = {
                 version = 'LuaJIT',
             },
             workspace = {
                 library = {
-                    vim.env.VIMRUNTIME,
-                    vim.api.nvim_get_runtime_file('', true),
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                    [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
                 },
             },
         },
@@ -61,6 +65,9 @@ local function default_lsp_binds(_, bufnr)
     vim.keymap.set({ 'i', 's' }, '<C-s>', vim.lsp.buf.signature_help, { buffer = bufnr })
     vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, { buffer = bufnr })
     vim.keymap.set('n', '<F3>', vim.lsp.buf.format, { buffer = bufnr })
+    vim.keymap.set('n', '<F4>', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end, { buffer = bufnr })
     vim.keymap.set('n', '<M-d>', vim.lsp.buf.code_action, { buffer = bufnr })
     vim.keymap.set('n', '<M-n>', vim.diagnostic.goto_next, { buffer = bufnr })
     vim.keymap.set('n', '<M-p>', vim.diagnostic.goto_prev, { buffer = bufnr })

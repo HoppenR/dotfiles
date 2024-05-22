@@ -2,13 +2,14 @@
 -- ~/.config/nvim/lua/plugins/init.lua
 --
 
--- TODO: Switch to rocks.nvim
 -- IDEA: Github copilot?
 -- IDEA: lewis6991/gitsigns.nvim
 
 return {
     --[[ Plugin Manager ]]
     -- 'folke/lazy.nvim' --> ./init.lua
+    -- 'vhyrro/luarocks.nvim' --> ./luarocks-nvim.lua
+    --                        --> (Manages dependencies for neorg setup)
 
     --[[ File Manager ]]
     -- 'stevearc/oil.nvim' --> ./oil-nvim.lua
@@ -22,15 +23,12 @@ return {
 
     --[[ Completion ]]
     -- 'hrsh7th/nvim-cmp' --> ./nvim-cmp.lua
-    -- 'L3MON4D3/LuaSnip' --> ./luasnip.lua
-    --                    --> (Also opt for my nvim-cmp setup)
 
     --[[ Telescope ]]
     -- 'nvim-telescope/telescope' --> ./telescope.lua
 
     --[[ Treesitter ]]
     -- 'nvim-treesitter/nvim-treesitter' --> ./nvim-treesitter.lua
-    --                                   --> (Also opt for neorg)
     --                                   --> (Also opt for nvim-notify)
 
     --[[ Neorg ]]
@@ -42,21 +40,12 @@ return {
     --[[ Dependencies (Extra) ]]
     --  package                         location
     -- 'nvim-lua/plenary.nvim'          ./telescope.lua
-    --                                  ./neorg.lua
     --                                  ./undotree.lua
     -- 'hrsh7th/cmp-nvim-lsp'           ./nvim-cmp.lua
     --                                  ./nvim-lspconfig.lua
     -- 'hrsh7th/cmp-buffer'             ./nvim-cmp.lua
     -- 'hrsh7th/cmp-cmdline'            ./nvim-cmp.lua
     -- 'hrsh7th/cmp-path'               ./nvim-cmp.lua
-    -- 'hrsh7th/cmp_luasnip'            ./nvim-cmp.lua
     -- 'nvim-tree/nvim-web-devicons'    ./oil-nvim.lua
     --                                  ./telescope.lua
-
-    -- {
-    --     'letieu/btw.nvim',
-    --     opts = {
-    --         text = "I use Arch (BTW)",
-    --     }
-    -- }
 }
