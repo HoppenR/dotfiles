@@ -1,6 +1,5 @@
 return {
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
     main = 'nvim-treesitter.configs',
     opts = {
         -- 'norg' and 'norg-meta' is handled by .build in ./neorg.lua

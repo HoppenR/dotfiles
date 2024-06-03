@@ -107,7 +107,7 @@ return {
         for server_name, server_conf in pairs(lsp_servers_list) do
             lspconfig[server_name].setup({
                 capabilities = capabilities,
-                -- inlay_hints = { enabled = true },
+                inlay_hints = { enabled = true },
                 on_attach = default_lsp_binds,
                 on_init = function(client)
                     client.config.settings = vim.tbl_deep_extend(

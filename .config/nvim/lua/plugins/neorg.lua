@@ -6,6 +6,7 @@ local function default_neorg_binds(keybinds)
     keybinds.map('norg', 'n', ldr .. 'j', '<cmd>Neorg journal today<CR>')
     keybinds.map('norg', 'n', ldr .. 'w', '<cmd>Neorg index<CR>')
     keybinds.map('norg', 'n', ldr .. 'y', '<cmd>Neorg journal yesterday<CR>')
+    keybinds.map('norg', 'n', ldr .. 'c', '<cmd>Neorg journal custom<CR>')
 end
 
 -- Return Lazy config
@@ -28,7 +29,6 @@ return {
             ['core.completion'] = {
                 config = {
                     engine = 'nvim-cmp',
-                    name = '[Norg]',
                 },
             },
             ['core.concealer'] = {

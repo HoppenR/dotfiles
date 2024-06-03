@@ -1,5 +1,9 @@
 return {
     'vhyrro/luarocks.nvim',
     priority = 1000,
-    opts = { },
+    opts = {
+        luarocks_build_args = {
+            "--with-lua-include=/usr/include",
+        },
+    },
 }
