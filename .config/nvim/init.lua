@@ -126,85 +126,57 @@ end
 
 --- AUTOCOMMANDS
 -- Run makeprg if a makefile is in the same directory on buffer write
----@type number
-local AutoMake = vim.api.nvim_create_augroup(
-    'AutoMake',
-    { clear = true }
-)
-vim.api.nvim_create_autocmd(
-    'BufWritePost',
-    {
-        pattern = { '*.c', '*.cc', '*.cpp', '*.go', '*.rs' },
-        group = AutoMake,
-        callback = fns.make_if_makefile_exist,
-    }
-)
+local AutoMake = vim.api.nvim_create_augroup('AutoMake', {
+    clear = true
+})
+vim.api.nvim_create_autocmd('BufWritePost', {
+    pattern = { '*.c', '*.cc', '*.cpp', '*.go', '*.rs' },
+    group = AutoMake,
+    callback = fns.make_if_makefile_exist,
+})
 
 -- Set settings for built-in neovim terminals
----@type number
-local TerminalSettings = vim.api.nvim_create_augroup(
-    'TerminalSettings',
-    { clear = true }
-)
-vim.api.nvim_create_autocmd(
-    'TermOpen',
-    {
-        pattern = 'term://*',
-        group = TerminalSettings,
-        callback = fns.set_terminal_settings,
-    }
-)
+local TerminalSettings = vim.api.nvim_create_augroup('TerminalSettings', {
+    clear = true
+})
+vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = 'term://*',
+    group = TerminalSettings,
+    callback = fns.set_terminal_settings,
+})
 
 -- Dynamically set the indent chars to the shiftwidth value
 -- once on a new buffer and every time a relevant option is changed
----@type number
-local AutoSetIndentChars = vim.api.nvim_create_augroup(
-    'AutoSetIndentChars',
-    { clear = true }
-)
-vim.api.nvim_create_autocmd(
-    'OptionSet',
-    {
-        pattern = { 'shiftwidth', 'tabstop' },
-        group = AutoSetIndentChars,
-        callback = fns.set_lead_indent_chars,
-    }
-)
-vim.api.nvim_create_autocmd(
-    'BufWinEnter',
-    {
-        pattern = '*',
-        group = AutoSetIndentChars,
-        callback = fns.set_lead_indent_chars,
-    }
-)
+local AutoSetIndentChars = vim.api.nvim_create_augroup('AutoSetIndentChars', {
+    clear = true
+})
+vim.api.nvim_create_autocmd('OptionSet', {
+    pattern = { 'shiftwidth', 'tabstop' },
+    group = AutoSetIndentChars,
+    callback = fns.set_lead_indent_chars,
+})
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    pattern = '*',
+    group = AutoSetIndentChars,
+    callback = fns.set_lead_indent_chars,
+})
 
 -- Standard settings for Golang files
----@type number
-local GolangSettings = vim.api.nvim_create_augroup(
-    'GolangSettings',
-    { clear = true }
-)
-vim.api.nvim_create_autocmd(
-    'FileType',
-    {
-        pattern = 'go',
-        group = GolangSettings,
-        callback = fns.set_golang_settings,
-    }
-)
+local GolangSettings = vim.api.nvim_create_augroup('GolangSettings', {
+    clear = true
+})
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'go',
+    group = GolangSettings,
+    callback = fns.set_golang_settings,
+})
 
 -- Standard settings for OCAML files
----@type number
-local OCAMLSettings = vim.api.nvim_create_augroup(
-    'OCAMLSettings',
-    { clear = true }
-)
-vim.api.nvim_create_autocmd(
-    'FileType',
-    {
-        pattern = 'ocaml',
-        group = OCAMLSettings,
-        callback = fns.set_ocaml_settings,
-    }
-)
+local OCAMLSettings = vim.api.nvim_create_augroup('OCAMLSettings', {
+    clear = true
+})
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'ocaml',
+    group = OCAMLSettings,
+    callback = fns.set_ocaml_settings,
+})

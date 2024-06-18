@@ -16,9 +16,6 @@ local lsp_servers_list = {
             completion = {
                 callSnippet = 'Replace',
             },
-            diagnostics = {
-                globals = { "vim" },
-            },
             hint = {
                 enable = true,
             },
@@ -71,7 +68,6 @@ local function default_lsp_binds(_, bufnr)
     vim.keymap.set('n', '<M-d>', vim.lsp.buf.code_action, { buffer = bufnr })
     vim.keymap.set('n', '<M-n>', vim.diagnostic.goto_next, { buffer = bufnr })
     vim.keymap.set('n', '<M-p>', vim.diagnostic.goto_prev, { buffer = bufnr })
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr })
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr })
 end
 
@@ -102,6 +98,7 @@ return {
             signs = false,
             underline = true,
             update_in_insert = false,
+            virtual_text = true,
         })
 
         for server_name, server_conf in pairs(lsp_servers_list) do

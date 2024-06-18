@@ -17,6 +17,7 @@ return {
     --[[ Language Server Protocol ]]
     -- 'neovim/nvim-lspconfig' --> ./nvim-lspconfig.lua
     -- 'j-hui/fidget.nvim' --> ./fidget-nvim.lua
+    -- 'folke/lazydev.nvim' --> ./lazydev-nvim.lua
 
     --[[ Notifications ]]
     -- 'rcarriga/nvim-notify' --> ./nvim-notify.lua
@@ -48,4 +49,14 @@ return {
     -- 'hrsh7th/cmp-path'               ./nvim-cmp.lua
     -- 'nvim-tree/nvim-web-devicons'    ./oil-nvim.lua
     --                                  ./telescope.lua
+    -- 'Bilal2453/luvit-meta'           ./lazydev-nvim.lua
+
+    --[[ Local plugins ]]
+    {
+        dir = '~/.local/share/nvim/lazy/storm-mode.nvim',
+        opts = {
+            compiler = vim.fn.expand('~/projects/storm-lang/storm'),
+            root = vim.fn.expand('~/projects/storm-lang/root/'),
+        },
+    },
 }

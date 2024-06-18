@@ -7,6 +7,8 @@ local function default_neorg_binds(keybinds)
     keybinds.map('norg', 'n', ldr .. 'w', '<cmd>Neorg index<CR>')
     keybinds.map('norg', 'n', ldr .. 'y', '<cmd>Neorg journal yesterday<CR>')
     keybinds.map('norg', 'n', ldr .. 'c', '<cmd>Neorg journal custom<CR>')
+    -- Don't autowrap
+    vim.opt_local.formatoptions:remove('t')
 end
 
 -- Return Lazy config
