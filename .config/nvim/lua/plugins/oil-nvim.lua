@@ -1,3 +1,6 @@
+local Oil = require('oil')
+local Fns = require('functions')
+
 -- Bookmarks
 ---@type table<string, string>
 local oil_bookmarks = {
@@ -14,21 +17,22 @@ local oil_bookmarks = {
 
 -- Ranger-like 'g' keybind for selecting a bookmarked location via a single key
 local function bookmark_prompt()
-    local oil = require('oil')
-    local fns = require('functions')
     ---@type string[]
     local prompt_lines = { 'key' .. '\t\t' .. 'location' }
     for key, path in pairs(oil_bookmarks) do
         table.insert(prompt_lines, key .. '\t\t' .. path)
     end
     ---@type string
-    local selected_key = fns.ranger_prompt(prompt_lines)
+    local selected_key = Fns.ranger_prompt(prompt_lines)
     ---@type string
     local target_path = oil_bookmarks[selected_key]
     if target_path then
-        oil.open(target_path)
+        Oil.open(target_path)
     end
 end
+
+-- Global keybinds
+vim.keymap.set('n', '<M-e>', Oil.open)
 
 -- Local keybinds
 ---@return table<string, function|string>
@@ -38,37 +42,16 @@ local function default_oil_binds()
             desc = 'Open the bookmark prompt',
             callback = bookmark_prompt,
         },
-        ['<leader>y'] = {
-            desc = 'Copy filepath to system clipboard',
-            callback = function ()
-                require('oil.actions').copy_entry_path.callback()
-                vim.fn.setreg('+', vim.fn.getreg(vim.v.register))
-            end,
-        }
-        -- ['cd'] = 'cd',
     }
 end
 
-
--- Return Lazy config
-return {
-    'stevearc/oil.nvim',
-    dependencies = {
-        'nvim-tree/nvim-web-devicons',
+Oil.setup({
+    default_file_explorer = true,
+    columns = {
+        'icon',
+        'permissions',
+        'size',
+        'mtime',
     },
-    config = function()
-        local oil = require('oil')
-        oil.setup({
-            default_file_explorer = true,
-            columns = {
-                'icon',
-                'permissions',
-                'size',
-                'mtime',
-            },
-            keymaps = default_oil_binds(),
-        })
-        -- Global keybinds
-        vim.keymap.set('n', '<M-e>', oil.open)
-    end,
-}
+    keymaps = default_oil_binds(),
+})

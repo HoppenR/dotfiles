@@ -9,7 +9,7 @@ end
 -- Set colorscheme name
 vim.g.colors_name = 'wal'
 
-local fns = require('functions')
+local Fns = require('functions')
 local wal_file = vim.fn.expand('~/.cache/wal/colors-wal.vim')
 
 if vim.fn.filereadable(wal_file) == 1 then
@@ -41,7 +41,7 @@ else
     vim.g.color15 = 'White'
 end
 
-local StandoutBackground = fns.brighten_color(vim.g.color0, 20)
+local StandoutBackground = Fns.brighten_color(vim.g.color0, 20)
 -- local HighlightBackground = fns.brighten_color(vim.g.color0, 25)
 
 -- Set terminal_color for embedded nvim terminals

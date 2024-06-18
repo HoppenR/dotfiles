@@ -18,10 +18,8 @@ else
 end
 
 --- PLUGINS
-if not vim.g.lazy_did_setup then
-    vim.opt.runtimepath:prepend(vim.fn.stdpath('data') .. '/lazy/lazy.nvim')
-    require('lazy').setup('plugins', { ui = { border = 'rounded' } })
-end
+require('rocks-bootstrap')
+vim.cmd.packadd({ 'rocks-dev.nvim', bang = true })
 
 --- COLORSCHEME
 vim.cmd.colorscheme('wal')
@@ -97,7 +95,6 @@ vim.keymap.set('n', '<M-a>', vim.show_pos, { desc = 'Show language items' })
 vim.keymap.set('n', '<M-q>', vim.cmd.terminal, { desc = 'Open terminal window' })
 vim.keymap.set('n', '_', ':lua ')
 vim.keymap.set('n', 'ä', vim.cmd.LspInfo, { desc = 'Open LSP info' })
-vim.keymap.set('n', 'ö', vim.cmd.Lazy, { desc = 'Open Lazy' })
 vim.keymap.set('v', '<C-S-j>', ":move '>+1<CR>gv", { desc = 'Move visual selection down' })
 vim.keymap.set('v', '<C-S-k>', ":move '<-2<CR>gv", { desc = 'Move visual selection up' })
 vim.keymap.set('v', '¤', 'c<C-r>=<C-r>"<CR><Esc>', { desc = 'Evaluate highlighted expr' })

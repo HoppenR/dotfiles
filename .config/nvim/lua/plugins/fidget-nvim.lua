@@ -1,10 +1,3 @@
-return {
-    'j-hui/fidget.nvim',
-    tag = 'legacy',
-    event = 'LspAttach',
-    opts = {
-        text = {
-            spinner = 'dots_pulse',
-        },
-    },
-}
+require('fidget').setup({
+    notification = { override_vim_notify = true },
+})

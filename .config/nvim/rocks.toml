@@ -1,0 +1,48 @@
+# IDEA: Github copilot?
+# IDEA: lewis6991/gitsigns.nvim
+
+[rocks]
+
+[config]
+plugins_dir = "plugins"
+auto_setup = false
+
+[rocks_lazy]
+import = "lazyplugins"
+
+[plugins]
+"cmp-buffer" = "scm"
+"cmp-cmdline" = "scm"
+"cmp-nvim-lsp" = "scm"
+"cmp-path" = "scm"
+"fidget.nvim" = "1.4.1"
+"lazydev-nvim" = { git = "folke/lazydev.nvim", opt = true }
+"luvit-meta" = { git = "Bilal2453/luvit-meta" }
+"neorg" = { version = "8.7.1", opt = true }
+"nvim-cmp" = { git = "hrsh7th/nvim-cmp" }
+"nvim-lspconfig" = "0.1.8"
+"nvim-treesitter" = "0.9.2"
+"oil.nvim" = "2.9.0"
+"rocks-config.nvim" = "1.6.0"
+"rocks-dev.nvim" = { version = "1.2.3", opt = true }
+"rocks-git.nvim" = "1.5.1"
+"rocks-lazy.nvim" = "scm"
+"rocks.nvim" = "2.31.1"
+"storm-mode" = { dir =  "~/projects/personal/storm-mode.nvim" }
+"telescope-undo.nvim" = "scm"
+"telescope.nvim" = "scm"
+
+[bundles.completion]
+items = [
+    "cmp-buffer",
+    "cmp-cmdline",
+    "cmp-nvim-lsp",
+    "cmp-path",
+    "nvim-cmp",
+]
+
+[bundles.telescope]
+items = [
+    "telescope-undo.nvim",
+    "telescope.nvim",
+]

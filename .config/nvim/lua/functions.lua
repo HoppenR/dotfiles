@@ -7,18 +7,12 @@
 local M = {}
 
 function M.set_insert_brace_bindings()
-    ---@type table<string, string>
     local braces = {
         ['('] = ')',
         ['['] = ']',
         ['{'] = '}',
     }
-    ---@type table<string, string>
-    local closings = {
-        ',',
-        ';',
-        '',
-    }
+    local closings = { ',', ';', '' }
     for open, close in pairs(braces) do
         for _, post in ipairs(closings) do
             vim.keymap.set(
@@ -33,12 +27,10 @@ end
 ---@param file string The filename or path
 ---@return boolean success Whether the file exists and is readable
 function M.file_exist_and_readable(file)
-    ---@type boolean|fail
-    local readable = vim.loop.fs_access(file, 'r')
+    local readable = vim.uv.fs_access(file, 'R')
     if readable == nil then return false end
 
-    ---@type table|fail
-    local stat = vim.loop.fs_stat(file)
+    local stat = vim.uv.fs_stat(file)
     if stat == nil then return false end
 
     return readable and stat.type == 'file'
@@ -106,7 +98,7 @@ function M.ranger_prompt(lines_to_display)
     local win = vim.api.nvim_open_win(buf, false, opts)
     vim.cmd.redraw()
     local key = vim.fn.nr2char(vim.fn.getchar())
-    vim.api.nvim_win_close(win, { force = true })
+    vim.api.nvim_win_close(win, true)
     return key
 end
 
