@@ -2,45 +2,35 @@ local Cmp = require('cmp')
 
 -- Scroll to next entry, inserting it, or fall back to opening completion
 local function insert_next_or_complete()
-    return function()
-        if Cmp.visible() then
-            Cmp.select_next_item({ behavior = Cmp.SelectBehavior.Insert })
-        else
-            Cmp.complete()
-        end
+    if not Cmp.visible() then
+        Cmp.complete()
     end
+    Cmp.select_next_item({ behavior = Cmp.SelectBehavior.Insert })
 end
 
 -- Scroll to prev entry, inserting it, or fall back to opening completion
 local function insert_prev_or_complete()
-    return function()
-        if Cmp.visible() then
-            Cmp.select_prev_item({ behavior = Cmp.SelectBehavior.Insert })
-        else
-            Cmp.complete()
-        end
+    if not Cmp.visible() then
+        Cmp.complete()
     end
+    Cmp.select_prev_item({ behavior = Cmp.SelectBehavior.Insert })
 end
 
 -- Scroll to next entry, only selecting it, or use sensible fallback
--- local function select_next_or_fallback()
---     return function(fallback)
---         if Cmp.visible() then
---             Cmp.select_next_item({ behavior = Cmp.SelectBehavior.Select })
---         else
---             fallback()
---         end
---     end
--- end
+local function select_next_or_fallback(fallback)
+    if not Cmp.visible() then
+        fallback()
+    else
+        Cmp.select_next_item({ behavior = Cmp.SelectBehavior.Select })
+    end
+end
 
 -- Scroll to prev entry, only selecting it, or use sensible fallback
-local function select_prev_or_fallback()
-    return function(fallback)
-        if Cmp.visible() then
-            Cmp.select_prev_item({ behavior = Cmp.SelectBehavior.Select })
-        else
-            fallback()
-        end
+local function select_prev_or_fallback(fallback)
+    if not Cmp.visible() then
+        fallback()
+    else
+        Cmp.select_prev_item({ behavior = Cmp.SelectBehavior.Select })
     end
 end
 
@@ -54,16 +44,16 @@ local default_cmp_keybinds = {
     ['<C-e>'] = Cmp.mapping(Cmp.mapping.abort(), { 'c', 'i' }),
     ['<C-f>'] = Cmp.mapping(Cmp.mapping.scroll_docs(4), { 'c', 'i' }),
     ['<C-Space>'] = Cmp.mapping(Cmp.mapping.complete({}), { 'c', 'i' }),
-    ['<C-n>'] = Cmp.mapping(insert_next_or_complete(), { 'c', 'i' }),
-    ['<C-p>'] = Cmp.mapping(insert_prev_or_complete(), { 'c', 'i' }),
+    ['<C-n>'] = Cmp.mapping(insert_next_or_complete, { 'c', 'i' }),
+    ['<C-p>'] = Cmp.mapping(insert_prev_or_complete, { 'c', 'i' }),
     ['<C-y>'] = Cmp.mapping(Cmp.mapping.confirm({ select = true }), { 'c', 'i' }),
     ['<Tab>'] = {
-        c = insert_next_or_complete(),
-        -- i = select_next_or_fallback(cmp),
+        c = insert_next_or_complete,
+        i = select_next_or_fallback,
     },
     ['<S-Tab>'] = {
-        c = insert_prev_or_complete(),
-        i = select_prev_or_fallback(),
+        c = insert_prev_or_complete,
+        i = select_prev_or_fallback,
     },
 }
 

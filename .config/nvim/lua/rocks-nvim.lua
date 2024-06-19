@@ -1,6 +1,6 @@
 -- Specifies where to install/use rocks.nvim
 local datapath = vim.fn.stdpath("data")
-assert(type(datapath) == 'string')
+---@cast datapath string
 local install_location = vim.fs.joinpath(datapath, "rocks")
 
 -- Set up configuration options related to rocks.nvim (recommended to leave as default)

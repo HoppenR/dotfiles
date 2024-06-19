@@ -18,7 +18,8 @@ else
 end
 
 --- PLUGINS
-require('rocks-bootstrap')
+require('rocks-nvim')
+-- local plugins
 vim.cmd.packadd({ 'rocks-dev.nvim', bang = true })
 
 --- COLORSCHEME

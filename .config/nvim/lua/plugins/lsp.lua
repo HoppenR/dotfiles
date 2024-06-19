@@ -1,6 +1,6 @@
 local Lspconfig = require('lspconfig')
+local CmpNvimLsp = require('cmp_nvim_lsp')
 local LspInfoWin = require('lspconfig.ui.windows')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- List of LSP servers to enable, and their configs
 local lsp_servers_list = {
@@ -30,7 +30,6 @@ local lsp_servers_list = {
                 library = {
                     [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                     [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                    [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
                 },
             },
         },
@@ -89,7 +88,7 @@ vim.diagnostic.config({
 
 for server_name, server_conf in pairs(lsp_servers_list) do
     Lspconfig[server_name].setup({
-        capabilities = capabilities,
+        capabilities = CmpNvimLsp.default_capabilities(),
         inlay_hints = { enabled = true },
         on_attach = default_lsp_binds,
         on_init = function(client)

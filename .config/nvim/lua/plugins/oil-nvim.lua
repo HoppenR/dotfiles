@@ -2,7 +2,6 @@ local Oil = require('oil')
 local Fns = require('functions')
 
 -- Bookmarks
----@type table<string, string>
 local oil_bookmarks = {
     ['/'] = '/',
     ['D'] = '~/Documents',
@@ -17,16 +16,13 @@ local oil_bookmarks = {
 
 -- Ranger-like 'g' keybind for selecting a bookmarked location via a single key
 local function bookmark_prompt()
-    ---@type string[]
     local prompt_lines = { 'key' .. '\t\t' .. 'location' }
     for key, path in pairs(oil_bookmarks) do
         table.insert(prompt_lines, key .. '\t\t' .. path)
     end
-    ---@type string
     local selected_key = Fns.ranger_prompt(prompt_lines)
-    ---@type string
     local target_path = oil_bookmarks[selected_key]
-    if target_path then
+    if target_path ~= nil then
         Oil.open(target_path)
     end
 end

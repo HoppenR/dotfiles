@@ -1,5 +1,5 @@
 return {
-    "lazydev-nvim",
+    "lazydev.nvim",
     ft = "lua",
     opt = true,
     after = function()

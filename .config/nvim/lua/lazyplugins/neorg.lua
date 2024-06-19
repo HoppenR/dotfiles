@@ -15,6 +15,7 @@ return {
     "neorg",
     cmd = "Neorg",
     ft = "norg",
+    opt = true,
     beforeAll = function()
         vim.keymap.set('n', vim.g.neorg_leader .. 'p', '<cmd>Neorg workspace personal<CR>')
         vim.keymap.set('n', vim.g.neorg_leader .. 's', '<cmd>Neorg workspace school<CR>')
