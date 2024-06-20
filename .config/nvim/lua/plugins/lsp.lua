@@ -86,9 +86,10 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
+local capabilities = CmpNvimLsp.default_capabilities()
 for server_name, server_conf in pairs(lsp_servers_list) do
     Lspconfig[server_name].setup({
-        capabilities = CmpNvimLsp.default_capabilities(),
+        capabilities = capabilities,
         inlay_hints = { enabled = true },
         on_attach = default_lsp_binds,
         on_init = function(client)

@@ -1,14 +1,15 @@
 # IDEA: Github copilot?
 # IDEA: lewis6991/gitsigns.nvim
 
-[rocks]
-
 [config]
 plugins_dir = "plugins"
-auto_setup = false
 
 [rocks_lazy]
 import = "lazyplugins"
+
+[treesitter]
+auto_highlight = "all"
+auto_install = true
 
 [plugins]
 "cmp-buffer" = "scm"
@@ -21,16 +22,21 @@ import = "lazyplugins"
 "neorg" = "8.7.1"
 "nvim-cmp" = "scm"
 "nvim-lspconfig" = "0.1.8"
-"nvim-treesitter" = "0.9.2"
 "oil.nvim" = "2.10.0"
 "rocks-config.nvim" = "2.0.0"
 "rocks-dev.nvim" = { version = "1.2.3", opt = true }
 "rocks-git.nvim" = "1.5.1"
 "rocks-lazy.nvim" = "scm"
+"rocks-treesitter.nvim" = "scm"
 "rocks.nvim" = "2.31.3"
 "storm-mode.nvim" = { dir = "~/projects/personal/storm-mode.nvim" }
 "telescope-undo.nvim" = "scm"
 "telescope.nvim" = "scm"
+nvim-treesitter-legacy-api = "0.9.2"
+tree-sitter-cpp = "scm"
+tree-sitter-make = "scm"
+tree-sitter-toml = "scm"
+tree-sitter-rust = "scm"
 
 [bundles.completion]
 items = [
