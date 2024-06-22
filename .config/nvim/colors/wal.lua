@@ -1,23 +1,14 @@
 -- ~/.config/nvim/colors/wal.lua
 
-vim.cmd.highlight('clear')
-vim.o.background = 'dark'
-if vim.fn.exists('syntax_on') then
-    vim.cmd.syntax('reset')
-end
-
--- Set colorscheme name
-vim.g.colors_name = 'wal'
-
 local Fns = require('functions')
-local wal_file = vim.fn.expand('~/.cache/wal/colors-wal.vim')
+local wal_file = vim.fs.normalize('~/.cache/wal/colors-wal.vim')
 
-if vim.fn.filereadable(wal_file) == 1 then
+if Fns.file_exist_and_readable(wal_file) then
     vim.cmd.source(wal_file)
 else
     vim.notify(
         'No wal file found, using fallback colors',
-        vim.log.levels.INFO,
+        vim.log.levels.WARN,
         { title = 'wal.lua' }
     )
     vim.g.background = 'Black'
@@ -42,14 +33,8 @@ else
 end
 
 local StandoutBackground = Fns.brighten_color(vim.g.color0, 20)
--- local HighlightBackground = fns.brighten_color(vim.g.color0, 25)
 
--- Set terminal_color for embedded nvim terminals
-for i = 0, 15 do
-    vim.g['terminal_color_' .. i] = vim.g['color' .. i]
-end
-
--- Title should not be linked to 'Special'? (MarkdownH3 same style as markdownCode)
+---@type table<string, vim.api.keyset.highlight>
 local highlights = {
     ['@constructor']                         = { link = 'Constructor' },
     ['@error']                               = { link = 'Error' },
@@ -165,7 +150,7 @@ local highlights = {
     ['TabLineFill']                          = { fg = vim.g.color8 },
     ['TabLineSel']                           = { bg = vim.g.color4, fg = vim.g.color0 },
     ['Tag']                                  = { fg = vim.g.color3 },
-    ['TelescopeMatching']                    = { fg = 'NONE' },
+    ['TelescopeSelection']                   = { link = 'CursorLine' },
     ['TermCursorNC']                         = { bg = vim.g.color3, fg = vim.g.color0 },
     ['Title']                                = { link = 'Special' },
     ['Todo']                                 = { bg = vim.g.color2, fg = vim.g.color0 },

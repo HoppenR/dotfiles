@@ -1,15 +1,11 @@
 # IDEA: Github copilot?
 # IDEA: lewis6991/gitsigns.nvim
 
-[config]
-plugins_dir = "plugins"
+# "nvim-cmp" = { git = "hrsh7th/nvim-cmp" }
 
-[rocks_lazy]
-import = "lazyplugins"
-
-[treesitter]
-auto_highlight = "all"
-auto_install = true
+[rocks]
+nlua = "0.2.0"
+busted = "2.2.0"
 
 [plugins]
 "cmp-buffer" = "scm"
@@ -20,7 +16,7 @@ auto_install = true
 "lazydev.nvim" = { git = "folke/lazydev.nvim" }
 "luvit-meta" = { git = "Bilal2453/luvit-meta" }
 "neorg" = "8.7.1"
-"nvim-cmp" = "scm"
+"nvim-cmp" = { git = "hrsh7th/nvim-cmp" }
 "nvim-lspconfig" = "0.1.8"
 "oil.nvim" = "2.10.0"
 "rocks-config.nvim" = "2.0.0"
@@ -32,11 +28,33 @@ auto_install = true
 "storm-mode.nvim" = { dir = "~/projects/personal/storm-mode.nvim" }
 "telescope-undo.nvim" = "scm"
 "telescope.nvim" = "scm"
+
+# Treesitter parsers
 nvim-treesitter-legacy-api = "0.9.2"
+tree-sitter-commonlisp = "scm"
 tree-sitter-cpp = "scm"
+tree-sitter-git_rebase = "scm"
+tree-sitter-gitcommit = "scm"
+tree-sitter-gitignore = "scm"
+tree-sitter-go = "scm"
+tree-sitter-gosum = "scm"
+tree-sitter-json = "scm"
 tree-sitter-make = "scm"
-tree-sitter-toml = "scm"
+tree-sitter-ocaml = "scm"
 tree-sitter-rust = "scm"
+tree-sitter-toml = "scm"
+tree-sitter-yaml = "scm"
+
+[config]
+plugins_dir = "plugins"
+
+[rocks_lazy]
+import = "lazyplugins"
+
+[treesitter]
+auto_highlight = "all"
+auto_install = "prompt"
+
 
 [bundles.completion]
 items = [

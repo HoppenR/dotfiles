@@ -27,13 +27,8 @@ end
 ---@param file string The filename or path
 ---@return boolean success Whether the file exists and is readable
 function M.file_exist_and_readable(file)
-    local readable = vim.uv.fs_access(file, 'R')
-    if readable == nil then return false end
-
     local stat = vim.uv.fs_stat(file)
-    if stat == nil then return false end
-
-    return readable and stat.type == 'file'
+    return stat and stat.type == 'file' and vim.uv.fs_access(file, 'R') or false
 end
 
 -- function M.highlight_cursor_word()

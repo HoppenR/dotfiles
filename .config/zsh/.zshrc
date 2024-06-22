@@ -119,9 +119,9 @@ if [[ -r /usr/share/fzf/completion.zsh ]]; then
     source /usr/share/fzf/completion.zsh
 fi
 # opam configuration
-if [[ -r ${OPAMROOT:-$XDG_DATA_HOME/opam}/opam-init/init.zsh ]]; then
-    source ${OPAMROOT:-$XDG_DATA_HOME/opam}/opam-init/init.zsh > /dev/null 2> /dev/null
-fi
+# if [[ -r ${OPAMROOT:-$XDG_DATA_HOME/opam}/opam-init/init.zsh ]]; then
+#     source ${OPAMROOT:-$XDG_DATA_HOME/opam}/opam-init/init.zsh > /dev/null 2> /dev/null
+# fi
 
 # Styles for zsh-syntax-highlighting
 export ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=white

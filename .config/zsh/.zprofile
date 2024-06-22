@@ -40,5 +40,5 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 ### EXTRA PATH DIRECTORIES
 PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/Documents/LiU/TDIU16/tdiu16-labs/src/utils/:$PATH"
+#PATH="$HOME/Documents/LiU/TDIU16/tdiu16-labs/src/utils/:$PATH"
 export PATH
