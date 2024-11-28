@@ -6,7 +6,7 @@ return {
         require('lazydev').setup({
             library = {
                 {
-                    path = "site/pack/rocks/start/luvit-meta/library",
+                    path = "luvit-meta/library",
                     words = { "vim%.uv" },
                 },
             },

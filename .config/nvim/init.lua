@@ -9,7 +9,7 @@ vim.cmd.syntax('on')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
-vim.g.neorg_leader = 's'
+vim.g.maplocalleader = 's'
 
 if vim.fn.has('gui_running') == 1 then
     vim.opt.guifont = { 'monospace', ':h15' }
@@ -94,6 +94,7 @@ vim.keymap.set('n', '<M-S-n>', '<cmd>cnext<CR>')
 vim.keymap.set('n', '<M-S-p>', '<cmd>cprevious<CR>')
 vim.keymap.set('n', '<M-a>', vim.show_pos, { desc = 'Show language items' })
 vim.keymap.set('n', '<M-q>', vim.cmd.terminal, { desc = 'Open terminal window' })
+vim.keymap.set('n', '-', ':set ')
 vim.keymap.set('n', '_', ':lua ')
 vim.keymap.set('n', 'ä', vim.cmd.LspInfo, { desc = 'Open LSP info' })
 vim.keymap.set('v', '<C-S-j>', ":move '>+1<CR>gv", { desc = 'Move visual selection down' })

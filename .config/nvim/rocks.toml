@@ -1,11 +1,7 @@
-# IDEA: Github copilot?
-# IDEA: lewis6991/gitsigns.nvim
-
-# "nvim-cmp" = { git = "hrsh7th/nvim-cmp" }
-
 [rocks]
-nlua = "0.2.0"
 busted = "2.2.0"
+luacheck = "1.2.0"
+nlua = "0.2.0"
 
 [plugins]
 "cmp-buffer" = "scm"
@@ -13,37 +9,59 @@ busted = "2.2.0"
 "cmp-nvim-lsp" = "scm"
 "cmp-path" = "scm"
 "fidget.nvim" = "1.4.1"
-"lazydev.nvim" = { git = "folke/lazydev.nvim" }
-"luvit-meta" = { git = "Bilal2453/luvit-meta" }
-"neorg" = "8.7.1"
-"nvim-cmp" = { git = "hrsh7th/nvim-cmp" }
-"nvim-lspconfig" = "0.1.8"
-"oil.nvim" = "2.10.0"
-"rocks-config.nvim" = "2.0.0"
-"rocks-dev.nvim" = { version = "1.2.3", opt = true }
-"rocks-git.nvim" = "1.5.1"
+"lazydev.nvim" = "1.8.0"
+"neorg" = "9.1.1"
+# "nvim-cmp" = { git = "hrsh7th/nvim-cmp" }
+"nvim-cmp" = "scm"
+"nvim-lspconfig" = "1.0.0"
+"oil.nvim" = "2.13.0"
+"rocks-config.nvim" = "3.0.0"
+"rocks-dev.nvim" = { version = "1.7.0", rev = "896f1dc81694b1dac009e35de2c01b78af8720f3" }
+"rocks-git.nvim" = "2.5.1"
 "rocks-lazy.nvim" = "scm"
 "rocks-treesitter.nvim" = "scm"
-"rocks.nvim" = "2.31.3"
+"rocks.nvim" = "2.41.3"
 "storm-mode.nvim" = { dir = "~/projects/personal/storm-mode.nvim" }
 "telescope-undo.nvim" = "scm"
 "telescope.nvim" = "scm"
 
 # Treesitter parsers
 nvim-treesitter-legacy-api = "0.9.2"
+tree-sitter-awk = "0.0.31"
+tree-sitter-bash = "0.0.35"
+tree-sitter-cmake = "0.0.31"
 tree-sitter-commonlisp = "scm"
 tree-sitter-cpp = "scm"
+tree-sitter-dart = "0.0.33"
+tree-sitter-desktop = "0.0.5"
+tree-sitter-diff = "0.0.31"
+tree-sitter-gdscript = "0.0.30"
 tree-sitter-git_rebase = "scm"
 tree-sitter-gitcommit = "scm"
 tree-sitter-gitignore = "scm"
 tree-sitter-go = "scm"
+tree-sitter-godot_resource = "0.0.29"
+tree-sitter-gomod = "0.0.30"
 tree-sitter-gosum = "scm"
+tree-sitter-html = "0.0.33"
+tree-sitter-javascript = "0.0.33"
 tree-sitter-json = "scm"
 tree-sitter-make = "scm"
 tree-sitter-ocaml = "scm"
+tree-sitter-perl = "0.0.35"
+tree-sitter-readline = "0.0.30"
 tree-sitter-rust = "scm"
 tree-sitter-toml = "scm"
+tree-sitter-vim = "scm"
+tree-sitter-xml = "0.0.33"
 tree-sitter-yaml = "scm"
+tree-sitter-asm = "0.0.29"
+tree-sitter-python = "0.0.32"
+tree-sitter-passwd = "0.0.29"
+
+[plugins."luvit-meta" ]
+git = "Bilal2453/luvit-meta"
+rev = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60"
 
 [config]
 plugins_dir = "plugins"
@@ -55,23 +73,7 @@ import = "lazyplugins"
 auto_highlight = "all"
 auto_install = "prompt"
 
-
-[bundles.completion]
-items = [
-    "cmp-buffer",
-    "cmp-cmdline",
-    "cmp-path",
-    "nvim-cmp",
-]
-
-[bundles.lsp]
-items = [
-    "nvim-lspconfig",
-    "cmp-nvim-lsp",
-]
-
-[bundles.telescope]
-items = [
-    "telescope-undo.nvim",
-    "telescope.nvim",
-]
+[bundles]
+completion = { items = [ "cmp-buffer", "cmp-cmdline", "cmp-path", "nvim-cmp" ] }
+lsp = { items = [ "nvim-lspconfig", "cmp-nvim-lsp" ] }
+telescope = { items = [ "telescope-undo.nvim", "telescope.nvim" ] }

@@ -11,8 +11,8 @@ include $HOME/.cache/wal/colors-sway
 #
 ## VARIABLES:
 #
-set $mod_apps Mod4
-set $mod_move Mod1
+set $mod_apps Mod3
+set $mod_move Mod4
 set $mod_sway Mod5
 set $term kitty --single-instance
 
@@ -52,6 +52,7 @@ output HDMI-A-1 {
 input type:keyboard {
     xkb_layout se,ru
     xkb_options grp:caps_toggle
+    xkb_file ~/.config/input/custom_mod.xkb
     repeat_delay 200
     repeat_rate 25
 }
@@ -86,6 +87,7 @@ floating_modifier $mod_move normal
 ## BASIC SWAY KEYBINDS:
 #
 bindsym $mod_sway+Shift+q kill
+bindsym $mod_sway+Shift+s sticky toggle
 bindsym $mod_sway+Shift+r reload
 bindsym $mod_sway+a       focus parent
 bindsym $mod_sway+c       splith

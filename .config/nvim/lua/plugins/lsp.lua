@@ -57,7 +57,6 @@ local lsp_servers_list = {
             },
         },
     },
-    ['ocamllsp'] = {},
 }
 
 -- Local keybinds

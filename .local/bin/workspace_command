@@ -74,14 +74,12 @@ def set_workspace_mode(
             cur_ws_num: int = get_num_or(event.current, INVALID_WORKSPACE)
             for num, cmd in to_ws:
                 if cur_ws_num == num:
-                    print("running: {}".format(cmd))
                     ipc_interface.command(cmd)
         if from_ws:
             old_ws_num: int = get_num_or(event.old, INVALID_WORKSPACE)
             for num, cmd in from_ws:
                 if old_ws_num == num:
                     ipc_interface.command(cmd)
-                    print("running: {}".format(cmd))
 
 
 def main() -> int:

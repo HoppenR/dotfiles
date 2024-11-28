@@ -16,13 +16,17 @@ vim.keymap.set('n', '<leader>t', Builtin.current_buffer_fuzzy_find)
 vim.keymap.set('n', '<leader>u', Telescope.extensions.undo.undo)
 vim.keymap.set('n', '<leader>v', Builtin.git_files)
 
+vim.keymap.set('n', '<leader>G', function()
+    Builtin.live_grep({ additional_args = { '--hidden' } })
+end, { desc = "Telescope grep hidden" })
+
 Telescope.setup({
     defaults = {
         scroll_strategy = 'limit',
-        sorting_strategy = 'ascending',
-        layout_config = {
-            prompt_position = 'top',
-        },
+        -- sorting_strategy = 'ascending',
+        -- layout_config = {
+        --     prompt_position = 'top',
+        -- },
         mappings = {
             n = {
                 ['<C-d>'] = Actions.results_scrolling_down,

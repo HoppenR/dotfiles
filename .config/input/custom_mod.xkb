@@ -1,0 +1,9 @@
+xkb_keymap {
+    xkb_keycodes { include "evdev+aliases(qwerty)" };
+    xkb_types { include "complete" };
+    xkb_compat { include "complete" };
+    xkb_symbols {
+        include "pc+se+ru:2+inet(evdev)"
+        replace key <RCTL> { [ ISO_Level5_Shift ] };
+    };
+};

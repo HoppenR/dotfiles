@@ -1,26 +1,25 @@
 -- Local keybinds
-local function default_neorg_binds(keybinds)
-    local ldr = vim.g.neorg_leader
-    keybinds.map('norg', 'n', ldr .. 'J', '<cmd>Neorg journal tomorrow<CR>')
-    keybinds.map('norg', 'n', ldr .. 'O', '<cmd>Neorg journal toc open<CR>')
-    keybinds.map('norg', 'n', ldr .. 'j', '<cmd>Neorg journal today<CR>')
-    keybinds.map('norg', 'n', ldr .. 'w', '<cmd>Neorg index<CR>')
-    keybinds.map('norg', 'n', ldr .. 'y', '<cmd>Neorg journal yesterday<CR>')
-    keybinds.map('norg', 'n', ldr .. 'c', '<cmd>Neorg journal custom<CR>')
+local function default_neorg_binds()
+    local ldr = vim.g.maplocalleader
+    vim.keymap.set('n', ldr .. 'J', '<cmd>Neorg journal tomorrow<CR>', {})
+    vim.keymap.set('n', ldr .. 'O', '<cmd>Neorg journal toc open<CR>', {})
+    vim.keymap.set('n', ldr .. 'j', '<cmd>Neorg journal today<CR>', {})
+    vim.keymap.set('n', ldr .. 'w', '<cmd>Neorg index<CR>', {})
+    vim.keymap.set('n', ldr .. 'y', '<cmd>Neorg journal yesterday<CR>', {})
+    vim.keymap.set('n', ldr .. 'c', '<cmd>Neorg journal custom<CR>', {})
     -- Don't autowrap
     vim.opt_local.formatoptions:remove('t')
 end
+
+vim.keymap.set('n', vim.g.maplocalleader .. 'p', '<cmd>Neorg workspace personal<CR>')
+vim.keymap.set('n', vim.g.maplocalleader .. 's', '<cmd>Neorg workspace school<CR>')
+-- vim.keymap.set('n', vim.g.maplocalleader, '<Nop>')
 
 return {
     "neorg",
     cmd = "Neorg",
     ft = "norg",
     opt = true,
-    beforeAll = function()
-        vim.keymap.set('n', vim.g.neorg_leader .. 'p', '<cmd>Neorg workspace personal<CR>')
-        vim.keymap.set('n', vim.g.neorg_leader .. 's', '<cmd>Neorg workspace school<CR>')
-        vim.keymap.set('n', vim.g.neorg_leader, '<Nop>')
-    end,
     after = function()
         require('neorg').setup({
             load = {
@@ -52,12 +51,6 @@ return {
                         workspace = 'school',
                     },
                 },
-                ['core.keybinds'] = {
-                    config = {
-                        neorg_leader = vim.g.neorg_leader,
-                        hook = default_neorg_binds,
-                    },
-                },
                 ['core.qol.toc'] = {
                     config = {
                         close_after_use = true,
@@ -66,5 +59,6 @@ return {
                 ['core.ui.calendar'] = {},
             },
         })
+        default_neorg_binds()
     end,
 }

@@ -17,13 +17,13 @@ local function insert_prev_or_complete()
 end
 
 -- Scroll to next entry, only selecting it, or use sensible fallback
-local function select_next_or_fallback(fallback)
-    if not Cmp.visible() then
-        fallback()
-    else
-        Cmp.select_next_item({ behavior = Cmp.SelectBehavior.Select })
-    end
-end
+--local function select_next_or_fallback(fallback)
+--    if not Cmp.visible() then
+--        fallback()
+--    else
+--        Cmp.select_next_item({ behavior = Cmp.SelectBehavior.Select })
+--    end
+--end
 
 -- Scroll to prev entry, only selecting it, or use sensible fallback
 local function select_prev_or_fallback(fallback)
@@ -49,7 +49,6 @@ local default_cmp_keybinds = {
     ['<C-y>'] = Cmp.mapping(Cmp.mapping.confirm({ select = true }), { 'c', 'i' }),
     ['<Tab>'] = {
         c = insert_next_or_complete,
-        i = select_next_or_fallback,
     },
     ['<S-Tab>'] = {
         c = insert_prev_or_complete,
@@ -72,7 +71,7 @@ Cmp.setup({
         {
             { name = 'neorg' },
             { name = 'nvim_lsp' },
-            { name = 'snp' },
+            -- { name = 'snp' },
             { name = 'path' },
         }, {
             -- Fallback sources

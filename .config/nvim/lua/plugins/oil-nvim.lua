@@ -12,6 +12,7 @@ local oil_bookmarks = {
     ['l'] = '~/Documents/LiU',
     ['n'] = '~/.config/nvim',
     ['p'] = '~/.config/nvim/lua/plugins',
+    ['r'] = '~/.local/share/nvim/rocks/share/lua/',
 }
 
 -- Ranger-like 'g' keybind for selecting a bookmarked location via a single key
