@@ -1,9 +1,20 @@
+# Vim: set ft=xkb :
 xkb_keymap {
     xkb_keycodes { include "evdev+aliases(qwerty)" };
     xkb_types { include "complete" };
     xkb_compat { include "complete" };
     xkb_symbols {
         include "pc+se+ru:2+inet(evdev)"
-        replace key <RCTL> { [ ISO_Level5_Shift ] };
+
+        # Use PrtSc as a Hyper key
+        replace key <PRSC> { [ ISO_Level5_Shift ] };
+
+        # CapsLock as a language toggle
+        name[group1] = "Swedish";
+        name[group2] = "Russian";
+        replace key <CAPS> {
+            type = "TWO_LEVEL",
+            symbols[Group1] = [ ISO_Next_Group, Caps_Lock ]
+        };
     };
 };

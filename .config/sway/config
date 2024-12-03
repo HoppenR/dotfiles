@@ -50,8 +50,6 @@ output HDMI-A-1 {
 ## PERIPHERALS:
 #
 input type:keyboard {
-    xkb_layout se,ru
-    xkb_options grp:caps_toggle
     xkb_file ~/.config/input/custom_mod.xkb
     repeat_delay 200
     repeat_rate 25
@@ -139,20 +137,21 @@ bindsym $mod_move+Shift+9 move container to workspace number 9
 #
 ## APPLICATIONS:
 #
-bindsym $mod_apps+Return exec kitty --single-instance
-bindsym $mod_apps+Space  exec makoctl dismiss --all
-bindsym $mod_apps+a      exec pavucontrol
-bindsym $mod_apps+b      exec killall -SIGUSR1 waybar
-bindsym $mod_apps+d      exec $drun_menu
-bindsym $mod_apps+e      exec $term -e $SHELL -c "nvim"
-bindsym $mod_apps+m      exec $emenu
-bindsym $mod_apps+n      exec makoctl dismiss
-bindsym $mod_apps+p      exec makoctl restore
-bindsym $mod_apps+q      exec $run_menu
-bindsym $mod_apps+s      exec $term -e $SHELL -c "streamshower -a $(getent hosts raspberrypi | awk '{print $1}'):8181"
-bindsym $mod_apps+w      exec $BROWSER
-bindsym $mod_apps+x      exec makoctl menu $dmenu
-bindsym Print            exec grim -g "$(slurp -d)" -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
+bindsym $mod_apps+Return  exec kitty --single-instance
+bindsym $mod_apps+Space   exec makoctl dismiss --all
+bindsym $mod_apps+a       exec pavucontrol
+bindsym $mod_apps+b       exec killall -SIGUSR1 waybar
+bindsym $mod_apps+d       exec $drun_menu
+bindsym $mod_apps+e       exec $term -e $SHELL -c "nvim"
+bindsym $mod_apps+m       exec $emenu
+bindsym $mod_apps+n       exec makoctl dismiss
+bindsym $mod_apps+p       exec makoctl restore
+bindsym $mod_apps+q       exec $run_menu
+bindsym $mod_apps+s       exec $term -e $SHELL -c "streamshower -a $(getent hosts raspberrypi | awk '{print $1}'):8181"
+bindsym $mod_apps+w       exec $BROWSER
+bindsym $mod_apps+x       exec makoctl menu $dmenu
+bindsym $mod_apps+f       exec grim -g "$(slurp -d)" -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
+bindsym $mod_apps+shift+F exec grim -c -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
 
 # Function keys
 bindsym XF86AudioLowerVolume  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -160,7 +159,6 @@ bindsym XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioPause        exec playerctl play-pause
 bindsym XF86AudioPlay         exec playerctl play-pause
 bindsym XF86AudioRaiseVolume  exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86Launch2           exec grim -c -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
 bindsym XF86MonBrightnessDown exec light_adjust U 5
 bindsym XF86MonBrightnessUp   exec light_adjust A 5
 
