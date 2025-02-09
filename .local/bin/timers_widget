@@ -2,6 +2,10 @@
 use strict;
 use warnings;
 
+# systemctl list-units --failed --quiet --no-pager --plain \
+# | awk '{print $1}' \
+# | xargs systemctl restart
+
 my @tooltip_lines;
 
 #### TIMERS
@@ -34,12 +38,12 @@ if (scalar @timer_table != 0) {
 }
 
 #### FAILED UNITS
-my @fail_table = qx(systemctl --quiet list-units --failed);
+my @fail_table = qx(systemctl --quiet list-units --failed --plain);
 my $first_failed;
 die "list-units command exited with non-zero status: $?\n" if $? != 0;
 
 if (scalar @fail_table != 0) {
-    my $re_failed = qr/● (?<name>\S+)\.service/;
+    my $re_failed = qr/(?<name>\S+)\.service/;
     push @tooltip_lines, "--- Failed units ---";
     my @failed = map { /$re_failed/ ? "$+{name}" : () } @fail_table;
     $first_failed = $failed[0];

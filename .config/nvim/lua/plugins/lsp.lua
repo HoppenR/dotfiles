@@ -1,10 +1,11 @@
-local Lspconfig = require('lspconfig')
-local CmpNvimLsp = require('cmp_nvim_lsp')
+local Blinkcmp = require('blink.cmp')
 local LspInfoWin = require('lspconfig.ui.windows')
+local Lspconfig = require('lspconfig')
 
 -- List of LSP servers to enable, and their configs
 local lsp_servers_list = {
     ['clangd'] = {},
+    ['dartls'] = {},
     ['gopls'] = {
         gopls = {
             analyses = {
@@ -15,6 +16,7 @@ local lsp_servers_list = {
             usePlaceholders = true,
         },
     },
+    ['hls'] = {},
     ['lua_ls'] = {
         Lua = {
             completion = {
@@ -60,18 +62,26 @@ local lsp_servers_list = {
 }
 
 -- Local keybinds
-local function default_lsp_binds(_, bufnr)
-    vim.keymap.set({ 'i', 's' }, '<C-s>', vim.lsp.buf.signature_help, { buffer = bufnr })
-    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, { buffer = bufnr })
-    vim.keymap.set('n', '<F3>', vim.lsp.buf.format, { buffer = bufnr })
+local function default_lsp_binds(event)
+    vim.keymap.set({ 'i', 's' }, '<C-s>', vim.lsp.buf.signature_help, { buffer = event.buf })
+    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, { buffer = event.buf })
+    vim.keymap.set('n', '<F3>', vim.lsp.buf.format, { buffer = event.buf })
     vim.keymap.set('n', '<F4>', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-    end, { buffer = bufnr })
-    vim.keymap.set('n', '<M-d>', vim.lsp.buf.code_action, { buffer = bufnr })
-    vim.keymap.set('n', '<M-n>', vim.diagnostic.goto_next, { buffer = bufnr })
-    vim.keymap.set('n', '<M-p>', vim.diagnostic.goto_prev, { buffer = bufnr })
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr })
+    end, { buffer = event.buf })
+    vim.keymap.set('n', '<M-d>', vim.lsp.buf.code_action, { buffer = event.buf })
+    vim.keymap.set('n', '<M-n>', vim.diagnostic.goto_next, { buffer = event.buf })
+    vim.keymap.set('n', '<M-p>', vim.diagnostic.goto_prev, { buffer = event.buf })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = event.buf })
 end
+
+local LspKeybinds = vim.api.nvim_create_augroup('LspKeybinds', {
+    clear = true
+})
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = LspKeybinds,
+    callback = default_lsp_binds,
+})
 
 -- :LspInfo
 LspInfoWin.default_options.border = 'rounded'
@@ -85,12 +95,12 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
-local capabilities = CmpNvimLsp.default_capabilities()
+local capabilities = Blinkcmp.get_lsp_capabilities()
 for server_name, server_conf in pairs(lsp_servers_list) do
     Lspconfig[server_name].setup({
         capabilities = capabilities,
         inlay_hints = { enabled = true },
-        on_attach = default_lsp_binds,
+        -- on_attach = default_lsp_binds,
         on_init = function(client)
             client.config.settings = vim.tbl_deep_extend(
                 'force',

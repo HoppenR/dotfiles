@@ -20,6 +20,10 @@ vim.keymap.set('n', '<leader>G', function()
     Builtin.live_grep({ additional_args = { '--hidden' } })
 end, { desc = "Telescope grep hidden" })
 
+vim.keymap.set('n', '<leader>F', function()
+    Builtin.find_files({ hidden = true, no_ignore = true })
+end, {})
+
 Telescope.setup({
     defaults = {
         scroll_strategy = 'limit',
@@ -39,6 +43,15 @@ Telescope.setup({
                 ['<C-d>'] = Actions.close,
                 ['<C-f>'] = Actions.preview_scrolling_down,
                 ['<C-u>'] = false,
+            },
+        },
+    },
+    pickers = {
+        buffers = {
+            mappings = {
+                n = {
+                    ['dd'] = Actions.delete_buffer,
+                },
             },
         },
     },

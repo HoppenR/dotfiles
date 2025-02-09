@@ -23,11 +23,6 @@ return {
     after = function()
         require('neorg').setup({
             load = {
-                ['core.completion'] = {
-                    config = {
-                        engine = 'nvim-cmp',
-                    },
-                },
                 ['core.concealer'] = {
                     config = {
                         folds = false,
@@ -44,7 +39,6 @@ return {
                     },
                 },
                 ['core.export'] = {},
-                ['core.integrations.nvim-cmp'] = {},
                 ['core.journal'] = {
                     config = {
                         strategy = 'nested',

@@ -55,15 +55,6 @@ function M.set_lead_indent_chars()
     })
 end
 
-function M.set_golang_settings()
-    vim.opt_local.expandtab = false
-    vim.opt_local.tabstop = 8
-end
-
-function M.set_ocaml_settings()
-    vim.opt_local.shiftwidth = 2
-end
-
 function M.set_terminal_settings()
     vim.cmd.startinsert()
     vim.opt_local.number = false

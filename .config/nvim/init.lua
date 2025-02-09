@@ -102,10 +102,10 @@ vim.keymap.set('v', '<C-S-k>', ":move '<-2<CR>gv", { desc = 'Move visual selecti
 vim.keymap.set('v', '¤', 'c<C-r>=<C-r>"<CR><Esc>', { desc = 'Evaluate highlighted expr' })
 
 -- Viewport
--- vim.keymap.set('n', '<Down>', '<C-e>')
--- vim.keymap.set('n', '<Left>', 'zh')
--- vim.keymap.set('n', '<Right>', 'zl')
--- vim.keymap.set('n', '<Up>', '<C-y>')
+vim.keymap.set('n', '<Down>', '<C-e>')
+vim.keymap.set('n', '<Left>', 'zh')
+vim.keymap.set('n', '<Right>', 'zl')
+vim.keymap.set('n', '<Up>', '<C-y>')
 
 -- Resize
 vim.keymap.set('n', '<S-Down>', '<C-w>-')
@@ -150,7 +150,7 @@ local AutoSetIndentChars = vim.api.nvim_create_augroup('AutoSetIndentChars', {
     clear = true
 })
 vim.api.nvim_create_autocmd('OptionSet', {
-    pattern = { 'shiftwidth', 'tabstop' },
+    pattern = { 'shiftwidth' },
     group = AutoSetIndentChars,
     callback = fns.set_lead_indent_chars,
 })
@@ -158,24 +158,4 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     pattern = '*',
     group = AutoSetIndentChars,
     callback = fns.set_lead_indent_chars,
-})
-
--- Standard settings for Golang files
-local GolangSettings = vim.api.nvim_create_augroup('GolangSettings', {
-    clear = true
-})
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'go',
-    group = GolangSettings,
-    callback = fns.set_golang_settings,
-})
-
--- Standard settings for OCAML files
-local OCAMLSettings = vim.api.nvim_create_augroup('OCAMLSettings', {
-    clear = true
-})
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'ocaml',
-    group = OCAMLSettings,
-    callback = fns.set_ocaml_settings,
 })

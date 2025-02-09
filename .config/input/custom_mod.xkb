@@ -10,8 +10,6 @@ xkb_keymap {
         replace key <PRSC> { [ ISO_Level5_Shift ] };
 
         # CapsLock as a language toggle
-        name[group1] = "Swedish";
-        name[group2] = "Russian";
         replace key <CAPS> {
             type = "TWO_LEVEL",
             symbols[Group1] = [ ISO_Next_Group, Caps_Lock ]

@@ -37,12 +37,14 @@ output eDP-1 {
     bg $wallpaper fill
     adaptive_sync off
     mode 1920x1200@60.001Hz
+    pos 0 1200
 }
 
 output HDMI-A-1 {
     bg $wallpaper fill
     adaptive_sync off
     mode 1920x1080@60.001Hz
+    pos 0 0
 }
 
 
@@ -75,10 +77,10 @@ client.focused_inactive $color0 $color0 $color8 $color0 $color0
 
 # Rules
 for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="kitty" title="Streamshower"] floating enable
+#for_window [app_id="kitty" title="Streamshower"] floating enable
 
 # Floating window grab modifier
-floating_modifier $mod_move normal
+floating_modifier $mod_move
 
 
 #
