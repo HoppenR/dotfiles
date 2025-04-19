@@ -13,7 +13,7 @@ require('fidget').setup({
             stack_upwards = false,
         },
         window = {
-            border = 'rounded',
+            border = vim.o.winborder,
         },
     },
 })

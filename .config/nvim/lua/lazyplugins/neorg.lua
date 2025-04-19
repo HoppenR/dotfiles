@@ -7,8 +7,6 @@ local function default_neorg_binds()
     vim.keymap.set('n', ldr .. 'w', '<cmd>Neorg index<CR>', {})
     vim.keymap.set('n', ldr .. 'y', '<cmd>Neorg journal yesterday<CR>', {})
     vim.keymap.set('n', ldr .. 'c', '<cmd>Neorg journal custom<CR>', {})
-    -- Don't autowrap
-    vim.opt_local.formatoptions:remove('t')
 end
 
 vim.keymap.set('n', vim.g.maplocalleader .. 'p', '<cmd>Neorg workspace personal<CR>')

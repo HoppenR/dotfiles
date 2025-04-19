@@ -78,7 +78,6 @@ function M.ranger_prompt(lines_to_display)
         row = (gheight - #lines_to_display - 5),
         col = 0,
         focusable = false,
-        border = 'rounded',
         zindex = 100,
     }
     local win = vim.api.nvim_open_win(buf, false, opts)

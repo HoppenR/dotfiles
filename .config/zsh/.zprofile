@@ -18,9 +18,9 @@ export GIT_PS1_SHOWDIRTYSTATE="true"
 export GIT_PS1_SHOWUNTRACKEDFILES="true"
 export GIT_PS1_SHOWUPSTREAM="true"
 # `highlight`:
-export HIGHLIGHT_TABWIDTH="4"
-export HIGHLIGHT_STYLE="$HOME/.cache/wal/highlight.theme"
-export HIGHLIGHT_OPTIONS="--line-numbers"
+#export HIGHLIGHT_TABWIDTH="4"
+#export HIGHLIGHT_STYLE="${XDG_CACHE_HOME}/wal/highlight.theme"
+#export HIGHLIGHT_OPTIONS="--line-numbers"
 # `less`:
 export LESS="-FRX -x1,5"
 # fzf-zsh:
@@ -37,6 +37,7 @@ export LESSHISTFILE="${XDG_STATE_HOME}/less/history"
 export PARALLEL_HOME="${XDG_CONFIG_HOME}/parallel"
 export PULSE_COOKIE="${XDG_DATA_HOME}/pulse/cookie"
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+export QMK_HOME="$HOME/projects/personal/qmk_firmware"
 
 ### EXTRA PATH DIRECTORIES
 PATH="$HOME/.local/bin:$PATH"

@@ -19,8 +19,6 @@ end
 
 --- PLUGINS
 require('rocks-nvim')
--- local plugins
-vim.cmd.packadd({ 'rocks-dev.nvim', bang = true })
 
 --- COLORSCHEME
 vim.cmd.colorscheme('wal')
@@ -36,7 +34,7 @@ vim.o.fileignorecase = true
 vim.o.ignorecase = true
 vim.o.list = true
 vim.o.number = true
-vim.o.relativenumber = false
+vim.o.relativenumber = true
 vim.o.ruler = false
 vim.o.smartcase = true
 vim.o.splitbelow = true
@@ -53,6 +51,7 @@ vim.o.foldmethod = 'marker'
 vim.o.laststatus = 3
 vim.o.pumblend = 0
 vim.o.shiftwidth = 0
+vim.o.signcolumn = 'no'
 vim.o.shortmess = 'AFOTWiost'
 vim.o.statusline = table.concat({
     -- Left
@@ -73,11 +72,12 @@ vim.o.titlestring = '%F - NVIM'
 vim.o.ttimeoutlen = 50
 vim.o.updatetime = 500
 vim.o.winbar = '%=%f %r%m%='
+vim.o.winborder = 'rounded'
 vim.o.winblend = 0
 
 --- LIST OPTIONS
 vim.opt.cinoptions = { ':0', 'g0', '(0', 'W4', 'l1' }
-vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
+vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
 vim.opt.foldmarker = { '{{{', '}}}' }
 -- NOTE: vim.opt_local.listchars['leadmultispace'] is set in AutoSetIndentChars
 vim.opt.listchars = { extends = '▸', nbsp = '◇', tab = '│ ', trail = '∘' }
@@ -114,7 +114,7 @@ vim.keymap.set('n', '<S-Right>', '<C-w>>')
 vim.keymap.set('n', '<S-Up>', '<C-w>+')
 
 -- Braces
-fns.set_insert_brace_bindings()
+-- fns.set_insert_brace_bindings()
 
 -- Graphical menu deletions
 if not vim.g.removed_menu_options then

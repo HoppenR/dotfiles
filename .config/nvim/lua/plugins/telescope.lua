@@ -22,10 +22,11 @@ end, { desc = "Telescope grep hidden" })
 
 vim.keymap.set('n', '<leader>F', function()
     Builtin.find_files({ hidden = true, no_ignore = true })
-end, {})
+end, { desc = "Telescope find hidden" })
 
 Telescope.setup({
     defaults = {
+        border = false,
         scroll_strategy = 'limit',
         -- sorting_strategy = 'ascending',
         -- layout_config = {
