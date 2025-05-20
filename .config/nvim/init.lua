@@ -77,7 +77,7 @@ vim.o.winblend = 0
 
 --- LIST OPTIONS
 vim.opt.cinoptions = { ':0', 'g0', '(0', 'W4', 'l1' }
-vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
+vim.opt.completeopt = { 'menuone', 'noinsert', 'popup' }
 vim.opt.foldmarker = { '{{{', '}}}' }
 -- NOTE: vim.opt_local.listchars['leadmultispace'] is set in AutoSetIndentChars
 vim.opt.listchars = { extends = '▸', nbsp = '◇', tab = '│ ', trail = '∘' }
@@ -100,6 +100,18 @@ vim.keymap.set('n', 'ä', vim.cmd.LspInfo, { desc = 'Open LSP info' })
 vim.keymap.set('v', '<C-S-j>', ":move '>+1<CR>gv", { desc = 'Move visual selection down' })
 vim.keymap.set('v', '<C-S-k>', ":move '<-2<CR>gv", { desc = 'Move visual selection up' })
 vim.keymap.set('v', '¤', 'c<C-r>=<C-r>"<CR><Esc>', { desc = 'Evaluate highlighted expr' })
+
+-- Enter should not accept the selected popupmenu entry, only <C-y> should
+vim.keymap.set("i", "<CR>",
+    function()
+        if vim.fn.pumvisible() == 1 then
+            return "<C-e><CR>"
+        else
+            return "<CR>"
+        end
+    end,
+    { expr = true }
+)
 
 -- Viewport
 vim.keymap.set('n', '<Down>', '<C-e>')
@@ -126,7 +138,7 @@ end
 --- AUTOCOMMANDS
 -- Run makeprg if a makefile is in the same directory on buffer write
 local AutoMake = vim.api.nvim_create_augroup('AutoMake', {
-    clear = true
+    clear = true,
 })
 vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = { '*.c', '*.cc', '*.cpp', '*.go', '*.rs' },
@@ -136,7 +148,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 -- Set settings for built-in neovim terminals
 local TerminalSettings = vim.api.nvim_create_augroup('TerminalSettings', {
-    clear = true
+    clear = true,
 })
 vim.api.nvim_create_autocmd('TermOpen', {
     pattern = 'term://*',
@@ -147,7 +159,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 -- Dynamically set the indent chars to the shiftwidth value
 -- once on a new buffer and every time a relevant option is changed
 local AutoSetIndentChars = vim.api.nvim_create_augroup('AutoSetIndentChars', {
-    clear = true
+    clear = true,
 })
 vim.api.nvim_create_autocmd('OptionSet', {
     pattern = { 'shiftwidth' },
@@ -158,4 +170,21 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     pattern = '*',
     group = AutoSetIndentChars,
     callback = fns.set_lead_indent_chars,
+})
+
+local TextYankHighlight = vim.api.nvim_create_augroup('highlight_yank', {
+    clear = true,
+})
+vim.api.nvim_create_autocmd('TextYankPost', {
+    group = TextYankHighlight,
+    desc = 'Hightlight selection on yank',
+    pattern = '*',
+    callback = function(args)
+        vim.hl.on_yank({
+            higroup = 'Search',
+            -- timeout = 150,
+            on_visual = false,
+            -- event = args.event,
+        })
+    end,
 })

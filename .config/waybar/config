@@ -1,4 +1,4 @@
-// Vim: set ft=json :
+// Vim: set ft=json5 :
 {
     "height": 44,
     "layer": "bottom",
@@ -124,9 +124,9 @@
         "smooth-scrolling-threshold": 1.0,
     },
     "network": {
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "format-alt": "{ipaddr}",
         "format-disconnected": "Disconnected ⚠",
-        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-ethernet": "{ifname} ",
         "format-linked": "{ifname} (No IP) ",
         "format-wifi": "{signalStrength}% ",
         "tooltip-format": "{ifname} via {gwaddr} ",

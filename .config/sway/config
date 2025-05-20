@@ -78,11 +78,11 @@ client.unfocused        $color0 $color0 $color8 $color0 $color0
 client.focused_inactive $color0 $color0 $color8 $color0 $color0
 
 # Rules
-for_window [app_id="pavucontrol"] floating enable
-#for_window [app_id="kitty" title="Streamshower"] floating enable
+for_window [app_id="pavucontrol"] floating enable, resize set 1200 700, move position center
+for_window [app_id="kitty_floating"] floating enable, resize set 1200 700, move position center
 
 # Floating window grab modifier
-floating_modifier $mod_move
+#floating_modifier $mod_move
 
 
 #
@@ -155,7 +155,7 @@ bindsym $mod_apps+m       exec $emenu
 bindsym $mod_apps+n       exec makoctl dismiss
 bindsym $mod_apps+p       exec makoctl restore
 bindsym $mod_apps+q       exec $run_menu
-bindsym $mod_apps+s       exec $term -e $SHELL -c "streamshower -a $(getent hosts raspberrypi | awk '{print $1}'):8181"
+bindsym $mod_apps+s       exec $term --class "kitty_floating" -e $SHELL -c "streamshower -a 'https://streams.hoppenr.xyz'"
 bindsym $mod_apps+w       exec $BROWSER
 bindsym $mod_apps+x       exec makoctl menu $dmenu
 bindsym $mod_apps+f       exec grim -g "$(slurp -d)" -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
@@ -219,7 +219,7 @@ mode "$mode_resize" {
 }
 
 # Mode switching
-bindsym $mod_sway+Ctrl+0 mode "$mode_power"
+# bindsym $mod_sway+Ctrl+0 mode "$mode_power"
 bindsym $mod_sway+r mode "$mode_resize"
 bindsym $mod_sway+Ctrl+Escape mode "$mode_minimal"
 
@@ -227,8 +227,8 @@ bindsym $mod_sway+Ctrl+Escape mode "$mode_minimal"
 #
 ## GAPS:
 #
-gaps inner 0
-gaps outer 0
+gaps inner 5
+gaps outer 5
 gaps top 0
 
 

@@ -86,12 +86,36 @@ unalias run-help
 
 # Functions
 vi-yank-arg() {
-  NUMERIC=1 zle .vi-add-next
-  zle .insert-last-word
+    NUMERIC=1 zle .vi-add-next
+    zle .insert-last-word
 }
 timer() {
     sleep $(( ${1:-10} * 60.0 ))
     notify-send "${2:-Timer done!}"
+}
+nv() {
+    local selected
+    roots=(
+        ~/projects
+        ~/projects/personal/
+        ~/dotfiles/.config/
+    )
+    if builtin command -v fd &>/dev/null; then
+      selected=$(fd --type d --max-depth 1 . "${roots[@]}" | fzf)
+    else
+      selected=$(find "${roots[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
+    fi
+    if [[ -n $selected ]]; then
+        builtin cd "$selected"
+        command nvim -- $selected
+    fi
+}
+gr() {
+    local root
+    root=$(git rev-parse --show-toplevel)
+    if [[ -n $root ]]; then
+        builtin cd -- "$root"
+    fi
 }
 
 # Widgets

@@ -82,7 +82,25 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
-        if client:supports_method('textDocument/completion') then
+        if client:supports_method('textDocument/completion', ev.buf) then
+            ---@type [string]
+            local all = {}
+            for code = 32, 126 do
+                table.insert(all, string.char(code))
+            end
+
+            ---@type [string]
+            local excludes = { " ", "(", ")", ";", "<", ">", "[", "]", "{", "}" }
+
+            ---@type [string]
+            local chars = vim.tbl_filter(
+                function(ch)
+                    return not vim.tbl_contains(excludes, ch)
+                end,
+                all
+            )
+
+            client.server_capabilities.completionProvider.triggerCharacters = chars
             vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
         end
     end,
