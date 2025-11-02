@@ -1,4 +1,4 @@
 require('storm-mode').setup({
-    compiler = vim.fs.normalize('~/projects/storm-lang/storm'),
-    root = vim.fs.normalize('~/projects/storm-lang/root/'),
+    compiler = '/home/christoffer/projects/storm-lang/storm',
+    root = '/home/christoffer/projects/storm-lang/root/',
 })

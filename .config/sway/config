@@ -15,6 +15,7 @@ set $mod_apps Mod3
 set $mod_move Mod4
 set $mod_sway Mod5
 set $term kitty --single-instance
+set $quickterm kitten quick-access-terminal
 
 # Application launchers
 set $menu_opts --insensitive --match=multi-contains
@@ -78,8 +79,8 @@ client.unfocused        $color0 $color0 $color8 $color0 $color0
 client.focused_inactive $color0 $color0 $color8 $color0 $color0
 
 # Rules
-for_window [app_id="pavucontrol"] floating enable, resize set 1200 700, move position center
-for_window [app_id="kitty_floating"] floating enable, resize set 1200 700, move position center
+for_window [app_id="pavucontrol"] floating enable, resize set 1350 750, move position center
+for_window [app_id="kitty_floating"] floating enable, resize set 1350 750, move position center
 
 # Floating window grab modifier
 #floating_modifier $mod_move
@@ -141,11 +142,23 @@ bindsym $mod_move+Shift+o move container to workspace number 9
 bindsym $mod_move+greater move workspace to output right
 bindsym $mod_move+less move workspace to output left
 
+# TODO: assign workspaces to outputs
+workspace 1 output DP-9
+workspace 2 output DP-9
+workspace 3 output DP-9
+workspace 4 output DP-9
+workspace 5 output DP-9
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
+
 
 #
 ## APPLICATIONS:
 #
-bindsym $mod_apps+Return  exec kitty --single-instance
+bindsym $mod_apps+Return  exec $term
 bindsym $mod_apps+Space   exec makoctl dismiss --all
 bindsym $mod_apps+a       exec pavucontrol
 bindsym $mod_apps+b       exec killall -SIGUSR1 waybar
@@ -155,7 +168,8 @@ bindsym $mod_apps+m       exec $emenu
 bindsym $mod_apps+n       exec makoctl dismiss
 bindsym $mod_apps+p       exec makoctl restore
 bindsym $mod_apps+q       exec $run_menu
-bindsym $mod_apps+s       exec $term --class "kitty_floating" -e $SHELL -c "streamshower -a 'https://streams.hoppenr.xyz'"
+bindsym $mod_apps+s       exec $quickterm streamshower -a 'https://streams.hoppenr.xyz/stream-data'
+bindsym $mod_apps+Ctrl+s  exec $quickterm streamshower -a 'http://vrpc:8181/stream-data'
 bindsym $mod_apps+w       exec $BROWSER
 bindsym $mod_apps+x       exec makoctl menu $dmenu
 bindsym $mod_apps+f       exec grim -g "$(slurp -d)" -- "$(date +$HOME/Pictures/screenshots/ss+%F-%H:%M:%S.png)"
@@ -175,7 +189,7 @@ bindsym XF86MonBrightnessUp   exec light_adjust A 5
 ## AUTOSTART:
 #
 exec swayidle -w
-exec workspace_command -t '3:mode "$mode_minimal"' -f '3:mode "$mode_default"'
+# exec workspace_command -t '3:mode "$mode_minimal"' -f '3:mode "$mode_default"'
 
 # Xwayland
 xwayland enable

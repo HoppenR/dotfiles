@@ -10,6 +10,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = 's'
+-- vim.loader.enable(true)
 
 if vim.fn.has('gui_running') == 1 then
     vim.opt.guifont = { 'monospace', ':h15' }
@@ -25,6 +26,13 @@ vim.cmd.colorscheme('wal')
 
 --- FUNCTIONS
 local fns = require('functions')
+
+vim.diagnostic.config({
+    virtual_text = true,
+    virtual_lines = false,
+    signs = false,
+    update_in_insert = true,
+})
 
 --- BOOLEAN OPTIONS
 vim.o.autochdir = true
@@ -42,6 +50,7 @@ vim.o.splitright = true
 vim.o.title = true
 vim.o.undofile = true
 vim.o.wrap = false
+vim.o.virtualedit = 'block'
 
 --- STRING / NUMBER OPTIONS
 vim.o.clipboard = 'unnamed'
@@ -57,6 +66,7 @@ vim.o.statusline = table.concat({
     -- Left
     ' ',
     '%F', -- Long filename
+    '%m', -- Changed file
     '%=', -- Separate sections
     -- Right
     ' 󱑜 %{&fileencoding} ',
@@ -71,6 +81,7 @@ vim.o.timeoutlen = 500
 vim.o.titlestring = '%F - NVIM'
 vim.o.ttimeoutlen = 50
 vim.o.updatetime = 500
+
 vim.o.winbar = '%=%f %r%m%='
 vim.o.winborder = 'rounded'
 vim.o.winblend = 0
@@ -81,9 +92,10 @@ vim.opt.completeopt = { 'menuone', 'noinsert', 'popup' }
 vim.opt.foldmarker = { '{{{', '}}}' }
 -- NOTE: vim.opt_local.listchars['leadmultispace'] is set in AutoSetIndentChars
 vim.opt.listchars = { extends = '▸', nbsp = '◇', tab = '│ ', trail = '∘' }
-vim.opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
+vim.opt.matchpairs = { '(:)', '{:}', '[:]', '<:>', '«:»' }
 
 --- MAPPINGS
+vim.keymap.set('n', '+', '<cmd>edit #<CR>')
 vim.keymap.set('n', '<C-S-j>', '<cmd>move+1<CR>')
 vim.keymap.set('n', '<C-S-k>', '<cmd>move-2<CR>')
 vim.keymap.set('n', '<C-w>N', vim.cmd.vnew, { desc = "Open new vertical split" })
@@ -96,22 +108,26 @@ vim.keymap.set('n', '<M-a>', vim.show_pos, { desc = 'Show language items' })
 vim.keymap.set('n', '<M-q>', vim.cmd.terminal, { desc = 'Open terminal window' })
 vim.keymap.set('n', '-', ':set ')
 vim.keymap.set('n', '_', ':lua ')
+vim.keymap.set({ 'n', 'v' }, '<Leader>d', '"_d')
+vim.keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
+vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
+vim.keymap.set('n', '<Leader>O', '<cmd>browse oldfiles<CR>')
 vim.keymap.set('n', 'ä', vim.cmd.LspInfo, { desc = 'Open LSP info' })
 vim.keymap.set('v', '<C-S-j>', ":move '>+1<CR>gv", { desc = 'Move visual selection down' })
 vim.keymap.set('v', '<C-S-k>', ":move '<-2<CR>gv", { desc = 'Move visual selection up' })
 vim.keymap.set('v', '¤', 'c<C-r>=<C-r>"<CR><Esc>', { desc = 'Evaluate highlighted expr' })
 
 -- Enter should not accept the selected popupmenu entry, only <C-y> should
-vim.keymap.set("i", "<CR>",
-    function()
-        if vim.fn.pumvisible() == 1 then
-            return "<C-e><CR>"
-        else
-            return "<CR>"
-        end
-    end,
-    { expr = true }
-)
+-- vim.keymap.set("i", "<CR>",
+--     function()
+--         if vim.fn.pumvisible() == 1 then
+--             return "<C-e><CR>"
+--         else
+--             return "<CR>"
+--         end
+--     end,
+--     { expr = true }
+-- )
 
 -- Viewport
 vim.keymap.set('n', '<Down>', '<C-e>')
@@ -124,9 +140,6 @@ vim.keymap.set('n', '<S-Down>', '<C-w>-')
 vim.keymap.set('n', '<S-Left>', '<C-w><')
 vim.keymap.set('n', '<S-Right>', '<C-w>>')
 vim.keymap.set('n', '<S-Up>', '<C-w>+')
-
--- Braces
--- fns.set_insert_brace_bindings()
 
 -- Graphical menu deletions
 if not vim.g.removed_menu_options then

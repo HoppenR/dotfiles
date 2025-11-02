@@ -58,6 +58,7 @@ local lsp_servers_list = {
             },
         },
     },
+    ['ts_ls'] = {},
 }
 
 -- Local keybinds
@@ -73,7 +74,7 @@ local function default_lsp_binds(event)
     vim.keymap.set('n', '<M-n>', function() vim.diagnostic.jump({ count = 1, float = true }) end, { buffer = event.buf })
     vim.keymap.set('n', '<M-p>', function() vim.diagnostic.jump({ count = -1, float = true }) end, { buffer = event.buf })
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = event.buf })
-    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, { buffer = event.buf })
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = event.buf })
 
     vim.keymap.set({ 'i', 's' }, '<C-h>', function() vim.snippet.jump(-1) end, { buffer = event.buf })
     vim.keymap.set({ 'i', 's' }, '<C-l>', function() vim.snippet.jump(1) end, { buffer = event.buf })
@@ -90,7 +91,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             end
 
             ---@type [string]
-            local excludes = { " ", "(", ")", ";", "<", ">", "[", "]", "{", "}" }
+            local excludes = { ' ', '(', ')', ';', '<', '>', '[', ']', '{', '}', ':' }
 
             ---@type [string]
             local chars = vim.tbl_filter(

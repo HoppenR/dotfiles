@@ -6,4 +6,6 @@ screenshots=(~/Pictures/screenshots/*.png)
 
 links=($(curl -F"file=@${screenshots[-1]}" https://st.pepog.com))
 
+echo $links
+
 ${BROWSER:-firefox} ${links[1]}

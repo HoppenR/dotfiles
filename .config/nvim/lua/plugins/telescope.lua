@@ -2,11 +2,25 @@ local Telescope = require('telescope')
 local Actions = require('telescope.actions')
 local Builtin = require('telescope.builtin')
 
+---@param opts table options passed on to telescope live_grep
+function Builtin.live_grep_git_root(opts)
+    opts = opts or {}
+    vim.validate('opts', opts, 'table')
+    opts.cwd = vim.fs.root(0, '.git/')
+    if opts.cwd == nil then
+        vim.notify("Git root not found")
+        return
+    end
+    Builtin.live_grep(opts)
+end
+
 -- Global keybinds
 vim.keymap.set('n', '<leader><leader>', Builtin.builtin)
 vim.keymap.set('n', '<leader>b', Builtin.buffers)
+vim.keymap.set('n', '<leader>c', Builtin.resume)
 vim.keymap.set('n', '<leader>f', Builtin.find_files)
 vim.keymap.set('n', '<leader>g', Builtin.live_grep)
+vim.keymap.set('n', '<leader>h', Builtin.live_grep_git_root)
 vim.keymap.set('n', '<leader>i', Builtin.lsp_implementations)
 vim.keymap.set('n', '<leader>l', Builtin.diagnostics)
 vim.keymap.set('n', '<leader>o', Builtin.oldfiles)
@@ -17,7 +31,7 @@ vim.keymap.set('n', '<leader>u', Telescope.extensions.undo.undo)
 vim.keymap.set('n', '<leader>v', Builtin.git_files)
 
 vim.keymap.set('n', '<leader>G', function()
-    Builtin.live_grep({ additional_args = { '--hidden' } })
+    Builtin.live_grep({ additional_args = { '--hidden', '--no-ignore' } })
 end, { desc = "Telescope grep hidden" })
 
 vim.keymap.set('n', '<leader>F', function()

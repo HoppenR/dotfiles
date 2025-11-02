@@ -36,7 +36,7 @@ window#waybar.empty .modules-center {
     background-color: transparent;
 }
 
-/* Standard look for all simple modules, scratchpad, workspace, and tray */
+/* Standard look for all simple modules, workspace, and tray */
 #backlight,
 #battery,
 #battery.charging,
@@ -52,7 +52,6 @@ window#waybar.empty .modules-center {
 #memory,
 #network,
 #pulseaudio,
-#scratchpad,
 #temperature,
 #tray,
 #workspaces > button {
@@ -70,18 +69,25 @@ window#waybar.empty .modules-center {
     transition-duration: .2s;
     transition-property: background-color;
 }
-/* Set a width for scratchpad/workspace that is wide enough not to fluctuate */
+
+/* Set wider min-width for scratchpad/workspace, wide enough not to fluctuate */
 #scratchpad,
 #workspaces > button {
     min-width: 40px;
     /* Fix for "workspace buttons have a strange hover effect", FAQ on github */
     background-image: none;
 }
+/* Visible workspace on inactive monitor */
+#workspaces > button.visible:not(.focused) {
+    background-color: alpha(@color8, 0.65);
+    box-shadow: inset 0px -1px @color1;
+}
 /* Focus workspace should highlight; bg-color transitions, box-shadow instant */
 #workspaces > button.focused {
     background-color: alpha(@color8, 0.5);
     box-shadow: inset 0px -2px @color1;
 }
+
 /* Change background on errors/warnings/activated states */
 #battery.warning:not(.charging),
 #cpu.warning,

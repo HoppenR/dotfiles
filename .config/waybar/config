@@ -39,24 +39,27 @@
         "spacing": 10,
     },
     "sway/workspaces": {
-        "all-outputs": true,
+        "all-outputs": false,
         "disable-scroll": true,
         "format": "{name} {icon}",
         "format-icons": {
+            // left hand
             "1": "",
             "2": "",
             "3": "",
-            "4": "󰙯",
-            "5": "󱂬",
+            // right hand
+            "6": "",
+            "7": "󰙯",
+            "8": "󱂬",
             "default": "",
             "urgent": "",
         },
         "warp-on-scroll": false,
     },
     "sway/scratchpad": {
-        "format": "{icon}:{count}",
-        "format-icons": ["", ""],
-        "show-empty": false,
+        "format": "{icon}<sup>{count}</sup>",
+        "format-icons": ["󰒏", "󰒋"],
+        "show-empty": true,
         "tooltip": true,
         "tooltip-format": "{app}: {title}",
     },
@@ -85,13 +88,16 @@
 
     // ## modules-center
     "sway/window": {
-        "format": "{}",
+        "all-outputs": true,
+        "format": "{title}",
         "max-length": 60,
         "min-length": 60,
+        "offscreen-css": true,
+        "offscreen-css-text": "<span foreground='#888'>(inactive)</span>",
         "rewrite": {
-            "(.*) — Mozilla Firefox": " $1",
-            "(.*) — Mozilla Firefox Private Browsing": "󱀣 $1",
-            "(.*) - NVIM": " $1",
+            "^Mozilla Firefox(.*)": "$1",
+            "(.*) — Mozilla Firefox$": " $1",
+            "(.*) - NVIM$": " $1",
         },
     },
 

@@ -6,24 +6,6 @@
 
 local M = {}
 
-function M.set_insert_brace_bindings()
-    local braces = {
-        ['('] = ')',
-        ['['] = ']',
-        ['{'] = '}',
-    }
-    local closings = { ',', ';', '' }
-    for open, close in pairs(braces) do
-        for _, post in ipairs(closings) do
-            vim.keymap.set(
-                'i',
-                open .. post .. '<CR>',
-                open .. '<CR>' .. close .. post .. '<Esc>O'
-            )
-        end
-    end
-end
-
 ---@param file string The filename or path
 ---@return boolean success Whether the file exists and is readable
 function M.file_exist_and_readable(file)
