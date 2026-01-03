@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             end
 
             ---@type [string]
-            local excludes = { ' ', '(', ')', ';', '<', '>', '[', ']', '{', '}', ':' }
+            local excludes = { ' ', "'", '(', ')', ';', '<', '>', '[', ']', '{', '}', ':' }
 
             ---@type [string]
             local chars = vim.tbl_filter(

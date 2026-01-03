@@ -7,9 +7,7 @@ if [[ $- != *i* ]]; then
     return
 fi
 
-# Debug check .zshrc sourced before sway auto-start from tty1, see '.zlogin'
 if [[ -z "${WAYLAND_DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]; then
-    echo "$(date) - .zshrc skipped (tty=${TTY}, vtnr=${XDG_VTNR} uptime=$(uptime --pretty))" >> ~/.zshrc-sourced.log
     return
 fi
 
@@ -203,15 +201,29 @@ function takedir() {
     fi
 }
 function restart-failed-units() {
+    local opts
+    zparseopts -A opts -D -E -F -- -restart-waybar
     local output="$(systemctl list-units --failed --quiet --no-pager --no-legend --plain)"
     if [[ -z "${output}" ]]; then
-        echo 'fatal: no failed systemd units' >&2
+        print -u2 'fatal: no failed systemd units'
         return 1
     fi
     local -a failed_units
     failed_units=("${(@f)output}")
     failed_units=("${(@)failed_units%% *}")
-    zargs --no-run-if-empty --interactive -- "${failed_units[@]}" -- systemctl restart --
+    local -a cmd
+    cmd=(systemctl restart --)
+    read -sq "answer?Run '${cmd} ${failed_units}' [y/N]"
+    print "$answer"
+    if [[ "$answer" != [Yy] ]]; then
+        return
+    fi
+    if ! zargs --no-run-if-empty -- "${(@)failed_units[@]}" -- "${(@)cmd}"; then
+        return
+    fi
+    if (( ${+opts[--restart-waybar]} )); then
+        killall -SIGUSR2 waybar
+    fi
 }
 function work-hours() {
     local -a days
@@ -219,7 +231,7 @@ function work-hours() {
     local -i total_minutes=0
     local start _end lunch
     for day in ${days}; do
-        echo "\n${day}:"
+        print "\n${day}:"
         vared -p '   Start time (HH:MM): ' start
         vared -p '   End time (HH:MM): ' _end
         vared -p '   Lunch minutes: ' lunch
@@ -228,21 +240,31 @@ function work-hours() {
         local -i worked=$((end_min - start_min - lunch))
         hours=$((worked / 60))
         minutes=$((worked % 60))
-        echo "  Worked: ${hours}h ${minutes}m"
+        print "  Worked: ${hours}h ${minutes}m"
         total_minutes+=worked
     done
     local -i total_hours=$((total_minutes / 60))
     local -i total_remainder=$((total_minutes % 60))
-    echo "\nTotal for week: ${total_hours}h ${total_remainder}m"
+    print "\nTotal for week: ${total_hours}h ${total_remainder}m"
 }
 
-# Zle keybind functions
+# ZLE FUNCTIONS
 function _assert_zle_context() {
     if (( ! ${+WIDGET} )); then
-        print "Warning: '${funcstack[-1]}' expects to run in a ZLE context" >&2
+        print -u2 "Warning: '${funcstack[-1]}' expects to run in a ZLE context"
         return 1
     fi
 }
+
+# Zle completion Functions
+_restart-failed-units() {
+  _assert_zle_context || return
+  _arguments \
+    '--restart-waybar[Restart waybar after successful service restart(s)]'
+}
+compdef _restart-failed-units restart-failed-units
+
+# Zle keybind functions
 function _vi-yank-arg() {
     _assert_zle_context || return
     NUMERIC=1 zle .vi-add-next
